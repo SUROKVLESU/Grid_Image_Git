@@ -10,6 +10,7 @@ public class ArrayTransitionNumbersFolder
     private const float Multiplier = 1.5f;
     private const int MinSize = 10;
     private int CountNumbers;
+    //public int GetCountNumbers => CountNumbers;
     public ArrayTransitionNumbersFolder()
     {
         ArrayNumbers = new int[MinSize];

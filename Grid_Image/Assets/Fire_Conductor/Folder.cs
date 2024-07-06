@@ -6,24 +6,14 @@ using UnityEngine.Windows;
 
 public class Folder
 {
-    private FolderOpeningPointer Pointer;
-    private ArrayFolders ChildFolders;
-    
-    public DirectoryInfo DirectoryInfoFolder 
-    {
-        get { return ChildFolders.GetParentFolder; }
-    }
-    public int GetUniqueFolderNumber
-    {
-        get { return Pointer.GetUniqueFolderNumber; }
-    }
-    /*public FolderOpeningPointer FolderOpeningPointer
-    {
-        get { return this.Pointer; }
-    } */
+
+    private ArrayFolders ArrayFolders;
+    public FolderPointer GetParentFolder => ArrayFolders.GetParentFolder;
+    public FolderPointer this[int index] => ArrayFolders[index];
+    public int GetCountFolder => ArrayFolders.GetCountFolder;   
     public static bool operator ==(Folder left, Folder right)
     {
-        return left.GetUniqueFolderNumber == right.GetUniqueFolderNumber;
+        return left.GetParentFolder.GetUniqueFolderNumber == right.GetParentFolder.GetUniqueFolderNumber;
     }
     public static bool operator !=(Folder left, Folder right)
     {
@@ -31,50 +21,40 @@ public class Folder
     }
     public static bool operator >(Folder left, Folder right)
     {
-        return left.GetUniqueFolderNumber > right.GetUniqueFolderNumber;
+        return left.GetParentFolder.GetUniqueFolderNumber > right.GetParentFolder.GetUniqueFolderNumber;
     }
     public static bool operator <(Folder left, Folder right)
     {
-        return left.GetUniqueFolderNumber < right.GetUniqueFolderNumber;
+        return left.GetParentFolder.GetUniqueFolderNumber < right.GetParentFolder.GetUniqueFolderNumber;
     }
     public static bool operator >=(Folder left, Folder right)
     {
-        return left.GetUniqueFolderNumber >= right.GetUniqueFolderNumber;
+        return left.GetParentFolder.GetUniqueFolderNumber >= right.GetParentFolder.GetUniqueFolderNumber;
     }
     public static bool operator <=(Folder left, Folder right)
     {
-        return left.GetUniqueFolderNumber <= right.GetUniqueFolderNumber;
+        return left.GetParentFolder.GetUniqueFolderNumber <= right.GetParentFolder.GetUniqueFolderNumber;
     }
 
-    public static Folder CreateDriveFolder(DriveInfo drive)
+    public static Folder CreateFolder(FolderPointer parentFolder)
     {
         return new Folder()
         {
-            Pointer = new FolderOpeningPointer(),
-            ChildFolders= new ArrayFolders(drive.RootDirectory)
-        };
+        ArrayFolders = new ArrayFolders(parentFolder)
+        };   
     }
-    public static Folder CreateFolder(DirectoryInfo directory)
+    /*public static Folder CreateFolder(DirectoryInfo directory)
     {
         return new Folder()
         {
-            Pointer = new FolderOpeningPointer(),
-            ChildFolders = new ArrayFolders(directory)
+            ArrayFolders = new ArrayFolders(directory)
         };
-    }
+    }*/
     public static Folder NullFolder(DirectoryInfo[] directories)
     {
         return new Folder()
         {
-            Pointer = new FolderOpeningPointer() ,
-            ChildFolders = new ArrayFolders(directories)
+            ArrayFolders = new ArrayFolders(directories)
         };
-    }
-    public DirectoryInfo this[int index]
-    {
-        get
-        {
-            return ChildFolders[index];
-        }
     }
 }

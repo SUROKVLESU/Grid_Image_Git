@@ -8,70 +8,58 @@ using UnityEngine.Windows;
 
 public class ArrayFolders
 {
-    private DirectoryInfo[] ArrayFoldersDirectory;
-    private bool[] ThereIsFolder;
-    private DirectoryInfo ParentFolder;//Родительская папка
-    private int IndexLastFileShown = -1;
+    private FolderPointer[] ArrayFoldersDirectory;
+    private FolderPointer ParentFolder;//Родительская папка
     private int CountFolder;
-    //private bool DirectoryEmpty = true;//Каталог пуст
 
 
+    public int GetCountFolder => CountFolder;
+    public FolderPointer GetParentFolder => ParentFolder;
+    public bool ThereAreFolders => CountFolder != 0;//папки есть
 
-
-
-    public void SetThereIsFolder(int index)
-    {
-        ThereIsFolder[index] = true;
-    }
-    public bool GetThereIsFolder(int index)
-    {
-        return ThereIsFolder[index];
-    }
-    public DirectoryInfo GetParentFolder
-    {
-        get {  return ParentFolder; }
-            
-    }
-    public bool ThereAreFolders()//Папки есть
-    {
-        if (CountFolder == 0) return false;
-        else return true;
-    }
-    public DirectoryInfo GetNextFolder()//Возвращает следующюю папку
-    {
-        if (CountFolder > (IndexLastFileShown+1)) return ArrayFoldersDirectory[IndexLastFileShown+1];
-        else if(CountFolder!=0) return ArrayFoldersDirectory[0];
-        return null;
-    }
-    public DirectoryInfo GetPrevFolder()//Возвращает предыдущюю папку
-    {
-        if (0 >= (IndexLastFileShown - 1)) return ArrayFoldersDirectory[IndexLastFileShown - 1];
-        else if (CountFolder != 0) return ArrayFoldersDirectory[CountFolder-1];
-        return null;
-    }
-
-    public DirectoryInfo this[int index]
+    public FolderPointer this[int index]
     {
         get
         { 
-            //IndexLastFileShown = index;
-            if(ThereAreFolders() && index <= (CountFolder-1) && index >= 0) 
+            if(ThereAreFolders && index <= (CountFolder-1) && index >= 0) 
                 return ArrayFoldersDirectory[index];
             else return null;
         }
     }
-    public ArrayFolders(DirectoryInfo directory)
+    public ArrayFolders(FolderPointer folderPointer)
     {
-        ArrayFoldersDirectory = directory.GetDirectories();
+        DirectoryInfo[] ArrayGetDirectories = folderPointer.GetDirectoryInfo.GetDirectories();
+        ArrayFoldersDirectory = new FolderPointer[ArrayGetDirectories.Length];
+        for (int i = 0; i < ArrayGetDirectories.Length; i++)
+        {
+            ArrayFoldersDirectory[i] = new FolderPointer(ArrayGetDirectories[i]);
+        }
         CountFolder = ArrayFoldersDirectory.Length;
-        ParentFolder = directory;
-        ThereIsFolder = new bool[CountFolder];
+        ParentFolder = folderPointer;
+        ParentFolder.SetBeenHereAndUniqueFolderNumber();//этот номер может и не тут надо писать
     }
-    public ArrayFolders(DirectoryInfo[] directories)
+    /*public ArrayFolders(DirectoryInfo directory)
     {
-        ArrayFoldersDirectory = directories;
+        DirectoryInfo[] ArrayGetDirectories = directory.GetDirectories();
+        ArrayFoldersDirectory = new FolderPointer[ArrayGetDirectories.Length];
+        for (int i = 0; i < ArrayGetDirectories.Length; i++)
+        {
+            ArrayFoldersDirectory[i] = new FolderPointer(ArrayGetDirectories[i]);
+        }
         CountFolder = ArrayFoldersDirectory.Length;
-        ThereIsFolder = new bool[CountFolder];
-        ParentFolder = null;
+        ParentFolder = new FolderPointer(directory);
+        ParentFolder.SetUniqueFolderNumber();//этот номер может и не тут надо писать
+        ParentFolder.SetBeenHere();
+    }*/
+    public ArrayFolders(DirectoryInfo[] directories)//используется для создание несуществующей папки
+                                                    //с дисками внутри
+    {
+        ArrayFoldersDirectory = new FolderPointer[directories.Length];
+        for (int i = 0; i < directories.Length; i++)
+        {
+            ArrayFoldersDirectory[i] = new FolderPointer(directories[i]);
+        }
+        CountFolder = ArrayFoldersDirectory.Length;
+        ParentFolder = new FolderPointer();
     }
 }

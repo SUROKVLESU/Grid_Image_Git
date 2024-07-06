@@ -7,67 +7,72 @@ using System;
 using UnityEngine.AdaptivePerformance;
 using System.Threading;
 
-public class DirectoryTransitionController : MonoBehaviour 
+public class DirectoryTransitionController
 {
-    private Folder[] folders;
+    private Folder[] Folders;
     private Folder SelectedFolder;
-    //private Folder ExitFolder;
-    
+    private ArrayTransitionNumbersFolder ArrayTransitionNumbersFolder;
 
 
-    public DirectoryTransitionController(DriveInfo[] drives)
+    public Folder GetSelectedFolder => SelectedFolder;
+    public DirectoryTransitionController(DriveInfo[] drives)//нужен для создания нулевой папки
     {
         DirectoryInfo[] directoryInfos = new DirectoryInfo[drives.Length];
         for (int i = 0; i < directoryInfos.Length; i++) directoryInfos[i] = drives[i].RootDirectory;
-        folders = new Folder[1] {Folder.NullFolder(directoryInfos) };
-
+        Folders = new Folder[1] {Folder.NullFolder(directoryInfos) };
+        SelectedFolder = Folders[0];
+        ArrayTransitionNumbersFolder = new ArrayTransitionNumbersFolder();
+        ArrayTransitionNumbersFolder.Add(Folders[0].GetParentFolder.GetUniqueFolderNumber);
     }
-    public void OpenFolder(DirectoryInfo directory)
+    public void ExitingFolder()
     {
-        Folder[] folders = new Folder[this.folders.Length+1];
-        for (int i = 0; i < folders.Length; i++) 
+        if (ArrayTransitionNumbersFolder.Watch == 0)
         {
-            folders[i]=this.folders[i];
+            SelectedFolder = Folders[0];
+            return;
         }
-        folders[this.folders.Length] = SelectedFolder;
-        //ExitFolder = SelectedFolder;
-        this.folders = folders;
-        SelectedFolder = Folder.CreateFolder(directory);
-    }
-    public void CloseFolder(DirectoryInfo directory)
-    {
-        SelectedFolder = this.SearchExitFolder();
-    }
-    public Folder SearchExitFolder()
-    {
-        if(SelectedFolder.GetUniqueFolderNumber == 0) return this.folders[0];
-        int DistanceIndex = 1;
-        string DirectoryInfoFolderName = SelectedFolder.DirectoryInfoFolder.Parent.FullName;
-        for (int i = 0; i < this.folders.Length;i++)
+        ArrayTransitionNumbersFolder.Remove();
+        if (ArrayTransitionNumbersFolder.Watch == 0)
         {
-            if ((SelectedFolder.GetUniqueFolderNumber
-               - this.folders[i].GetUniqueFolderNumber) == DistanceIndex&&
-               this.folders[i].GetUniqueFolderNumber!=0)
+            SelectedFolder = Folders[0];
+            return;
+        }
+        for (int i = 1; i < Folders.Length;i++)
+        {
+            if (Folders[i].GetParentFolder.GetUniqueFolderNumber == ArrayTransitionNumbersFolder.Watch)
+                SelectedFolder = Folders[i];
+        }
+    }
+    public void OpenFolder(FolderPointer folder)
+    {
+        if (folder.GetBeenHere)
+        {
+            if (folder.GetUniqueFolderNumber == 0)
             {
-                if (DirectoryInfoFolderName.Equals(this.folders[i].DirectoryInfoFolder.FullName))
-                { return this.folders[i]; }
-                else
-                {
-                    DistanceIndex++;
-                    i = 0;
-                    if (DistanceIndex == SelectedFolder.GetUniqueFolderNumber)
-                    { 
-                    return this.folders[0];
-                    }
-                }
+                SelectedFolder = Folders[0];
+                return;
+            }
+            for (int i = 1; i < Folders.Length; i++)
+            {
+                if (Folders[i].GetParentFolder.GetUniqueFolderNumber == folder.GetUniqueFolderNumber)
+                    SelectedFolder = Folders[i];
             }
         }
-        return this.folders[0];
-
+        else
+        {
+            SelectedFolder = Folder.CreateFolder(folder);
+            AddFolder(SelectedFolder);
+            ArrayTransitionNumbersFolder.Add(SelectedFolder.GetParentFolder.GetUniqueFolderNumber);
+        }
     }
-    public Folder SearchNextFolder(DirectoryInfo directory)
+    private void AddFolder(Folder folder)
     {
-
-        return Folder.CreateFolder(directory);
+        Folder[] array = new Folder[Folders.Length + 1];
+        for (int i = 0; i < Folders.Length; i++)
+        {
+            array[i] = Folders[i];
+        }
+        array[Folders.Length] = folder;
+        Folders = array;
     }
 }
