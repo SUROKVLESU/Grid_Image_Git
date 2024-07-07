@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class ArrayTransitionNumbersFolder
 {
@@ -10,14 +11,14 @@ public class ArrayTransitionNumbersFolder
     private const float Multiplier = 1.5f;
     private const int MinSize = 10;
     private int CountNumbers;
-    //public int GetCountNumbers => CountNumbers;
+
     public ArrayTransitionNumbersFolder()
     {
         ArrayNumbers = new int[MinSize];
         CountNumbers = 0;
         for (int i = 0; i < MinSize; i++)
         {
-            ArrayNumbers[i] = -1;
+            ArrayNumbers[i] = -100;
         }
     }
     private bool IsFull() => CountNumbers == ArrayNumbers.Length;
@@ -39,7 +40,7 @@ public class ArrayTransitionNumbersFolder
     public int Watch => ArrayNumbers[CountNumbers - 1];
     public void Remove()
     {
-        ArrayNumbers[CountNumbers--] = -1;
+        ArrayNumbers[CountNumbers--] = -100;
     }
 }
 

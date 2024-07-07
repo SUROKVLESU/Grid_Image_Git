@@ -7,7 +7,7 @@ public class FolderPointer
 {
     private DirectoryInfo DirectoryInfo;
     private bool BeenHere;//Был тут
-    private int UniqueFolderNumber;//Номер папки
+    private int UniqueFolderNumber = -1;//Номер папки
     private static int FollowingUniqueFolderNumber = 0;//Следкющий номер папки
 
 
@@ -17,12 +17,12 @@ public class FolderPointer
     public void SetBeenHereAndUniqueFolderNumber() 
     { 
         BeenHere = true;
-        UniqueFolderNumber = FollowingUniqueFolderNumber++;//тут может быть ошибка
+        UniqueFolderNumber = FollowingUniqueFolderNumber++;
     }
     public FolderPointer()//используется для создания нулевой папки
     {
         this.DirectoryInfo = null;
-        UniqueFolderNumber = FollowingUniqueFolderNumber++;//возможно ошибка
+        UniqueFolderNumber = FollowingUniqueFolderNumber++;
         BeenHere = true;
     }
     public FolderPointer(DirectoryInfo directory)

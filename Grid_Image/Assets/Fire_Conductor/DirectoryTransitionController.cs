@@ -14,7 +14,7 @@ public class DirectoryTransitionController
     private Folder SelectedFolder;
     private ArrayTransitionNumbersFolder ArrayTransitionNumbersFolder;
 
-    public UnityAction IFinished;
+    public UnityAction IFinished = new UnityAction(() => { });
 
     public Folder GetSelectedFolder => SelectedFolder;
     public DirectoryTransitionController(DriveInfo[] drives)//нужен для создания нулевой папки
@@ -44,21 +44,18 @@ public class DirectoryTransitionController
             if (Folders[i].GetParentFolder.GetUniqueFolderNumber == ArrayTransitionNumbersFolder.Watch)
                 SelectedFolder = Folders[i];
         }
-        IFinished();
     }
     public void OpenFolder(FolderPointer folder)
     {
         if (folder.GetBeenHere)
         {
-            if (folder.GetUniqueFolderNumber == 0)
-            {
-                SelectedFolder = Folders[0];
-                return;
-            }
             for (int i = 1; i < Folders.Length; i++)
             {
                 if (Folders[i].GetParentFolder.GetUniqueFolderNumber == folder.GetUniqueFolderNumber)
+                {
                     SelectedFolder = Folders[i];
+                    ArrayTransitionNumbersFolder.Add(SelectedFolder.GetParentFolder.GetUniqueFolderNumber);
+                }
             }
         }
         else

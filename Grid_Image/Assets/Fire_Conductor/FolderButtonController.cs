@@ -11,33 +11,79 @@ using UnityEngine.UI;
 
 public class FolderButtonController : MonoBehaviour
 {
-    //[SerializeField]
     private Button[] ButtonsFolder;
-    //[SerializeField]
     private Button ButtonExitingFolder;
-    //[SerializeField]
     private Button[] ButtonsBackForward;
-    //[SerializeField]
-    private TextMeshPro[] ButtonsTextMeshPro = new TextMeshPro[4];
+    private Text[] ButtonsTextMeshPro;
     private Folder SelectedFolder;
-    private int CountFolder;
     private int IndexNextFolder;
-    private static int IndexSelectedFolder;
+    private static int IndexSelectedFolder = 0;
 
-    public UnityAction OnClickButtonExitingFolder;
-    public UnityAction OnClickOpenFolder;
+    public UnityAction OnClickButtonExitingFolder = new UnityAction(()=> { });
+    public UnityAction OnClickOpenFolder = new UnityAction(() => { });
+
+
     public void UpdateButtons()
     {
+        if (!(IndexNextFolder < SelectedFolder.GetCountFolder && IndexNextFolder >= 0)) IndexNextFolder = 0;
         for (int i = 0; i < ButtonsFolder.Length; i++)
         {
-            if (IndexNextFolder < CountFolder && IndexNextFolder >= 0)
+            if (IndexNextFolder + i < SelectedFolder.GetCountFolder && IndexNextFolder + i >= 0)
             {
                 ButtonsFolder[i].onClick.RemoveAllListeners();
-                ButtonsFolder[i].onClick.AddListener(() => { IndexSelectedFolder = IndexNextFolder;
-                                                             OnClickOpenFolder();});
+                switch (i)
+                {
+                    case 0:
+                        ButtonsFolder[0].onClick.AddListener(() => {
+                            IndexSelectedFolder = IndexNextFolder + 0;
+                            OnClickOpenFolder();
+                        });
+                        break;
+                    case 1:
+                        ButtonsFolder[1].onClick.AddListener(() => {
+                            IndexSelectedFolder = IndexNextFolder + 1;
+                            OnClickOpenFolder();
+                        });
+                        break;
+                    case 2:
+                        ButtonsFolder[2].onClick.AddListener(() => {
+                            IndexSelectedFolder = IndexNextFolder + 2;
+                            OnClickOpenFolder();
+                        });
+                        break;
+                    case 3:
+                        ButtonsFolder[3].onClick.AddListener(() => {
+                            IndexSelectedFolder = IndexNextFolder + 3;
+                            OnClickOpenFolder();
+                        });
+                        break;
+                    case 4:
+                        ButtonsFolder[4].onClick.AddListener(() => {
+                            IndexSelectedFolder = IndexNextFolder + 4;
+                            OnClickOpenFolder();
+                        });
+                        break;
+                    case 5:
+                        ButtonsFolder[5].onClick.AddListener(() => {
+                            IndexSelectedFolder = IndexNextFolder + 5;
+                            OnClickOpenFolder();
+                        });
+                        break;
+                    case 6:
+                        ButtonsFolder[6].onClick.AddListener(() => {
+                            IndexSelectedFolder = IndexNextFolder + 6;
+                            OnClickOpenFolder();
+                        });
+                        break;
+                    case 7:
+                        ButtonsFolder[7].onClick.AddListener(() => {
+                            IndexSelectedFolder = IndexNextFolder + 7;
+                            OnClickOpenFolder();
+                        });
+                        break;
+                }
                 ButtonsFolder[i].gameObject.transform.parent.gameObject.SetActive(true);
-                ButtonsTextMeshPro[i].text = SelectedFolder[i].GetDirectoryInfo.Name;
-                IndexNextFolder++;
+                ButtonsTextMeshPro[i].text = SelectedFolder[IndexNextFolder + i].GetDirectoryInfo.Name;
             }
             else
             {
@@ -47,37 +93,39 @@ public class FolderButtonController : MonoBehaviour
         }
     }
     public static int GetIndexSelectedFolder => IndexSelectedFolder;
-    private void ButtonInitialization()
+    public void ButtonInitialization()
     {
-        GameObject ThisParentGameObject = this.gameObject.transform.parent.parent.parent.gameObject;
-        GameObject[] ArrayGameObjects = ThisParentGameObject.GetComponentsInChildren<GameObject>();
+        Transform ThisParentGameObject = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(0);
+        GameObject[] ArrayGameObjects = new GameObject[ThisParentGameObject.childCount];
+        for (int i = 0; i < ArrayGameObjects.Length; i++)
+        {
+            ArrayGameObjects[i] = ThisParentGameObject.GetChild(i).gameObject;
+        }
         ButtonsFolder = new Button[ArrayGameObjects.Length-2];
         for (int i = 0; i < ArrayGameObjects.Length-2; i++)
         {
             ButtonsFolder[i] = ArrayGameObjects[i].GetComponentInChildren<Button>();
         }
-        ButtonExitingFolder = ArrayGameObjects[ArrayGameObjects.Length-1].GetComponent<Button>();
-        GameObject game = ThisParentGameObject.transform.
-            GetChild(ThisParentGameObject.transform.childCount - 2).gameObject;
-        ButtonsBackForward = game.GetComponentsInChildren<Button>();
-
-        ButtonsTextMeshPro = new TextMeshPro[ButtonsFolder.Length];
+        ButtonExitingFolder = ArrayGameObjects[ArrayGameObjects.Length - 1].GetComponent<Button>();
+        ButtonsBackForward = ArrayGameObjects[ArrayGameObjects.Length - 2].GetComponentsInChildren<Button>();
+        ButtonsTextMeshPro = new Text[ButtonsFolder.Length];
         for (int i = 0; i < ButtonsFolder.Length; i++)
         {
-            ButtonsTextMeshPro[i] = ArrayGameObjects[i].GetComponentInChildren<TextMeshPro>();
+            ButtonsTextMeshPro[i] = ButtonsFolder[i].transform.parent.GetComponentInChildren<Text>();
         }
+        ButtonExitingFolder.onClick.AddListener(()=> OnClickButtonExitingFolder());
+        ButtonsBackForward[0].onClick.AddListener(() => {
+            IndexNextFolder -= ButtonsFolder.Length;
+            UpdateButtons();
+        });
+        ButtonsBackForward[1].onClick.AddListener(() => {
+            IndexNextFolder += ButtonsFolder.Length;
+            UpdateButtons();
+        });
     }
-    public FolderButtonController (Folder SelectedFolder)
+    public void Initialization (Folder SelectedFolder)
     {
-        ButtonInitialization();
         this.SelectedFolder = SelectedFolder;
-        CountFolder = this.SelectedFolder.GetCountFolder;
         IndexNextFolder = 0;
-        ButtonExitingFolder.onClick.AddListener(OnClickButtonExitingFolder);
-        ButtonsBackForward[0].onClick.AddListener(() => { IndexNextFolder -= ButtonsFolder.Length;
-                                                          UpdateButtons();});//может и не работать
-        ButtonsBackForward[1].onClick.AddListener(() => { IndexNextFolder += ButtonsFolder.Length;
-                                                          UpdateButtons();});
-        UpdateButtons();//может и не надо тут его вызывать
     }
 }
