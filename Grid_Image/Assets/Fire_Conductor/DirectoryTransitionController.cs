@@ -6,6 +6,7 @@ using UnityEngine.WSA;
 using System;
 using UnityEngine.AdaptivePerformance;
 using System.Threading;
+using UnityEngine.Events;
 
 public class DirectoryTransitionController
 {
@@ -13,6 +14,7 @@ public class DirectoryTransitionController
     private Folder SelectedFolder;
     private ArrayTransitionNumbersFolder ArrayTransitionNumbersFolder;
 
+    public UnityAction IFinished;
 
     public Folder GetSelectedFolder => SelectedFolder;
     public DirectoryTransitionController(DriveInfo[] drives)//нужен для создания нулевой папки
@@ -42,6 +44,7 @@ public class DirectoryTransitionController
             if (Folders[i].GetParentFolder.GetUniqueFolderNumber == ArrayTransitionNumbersFolder.Watch)
                 SelectedFolder = Folders[i];
         }
+        IFinished();
     }
     public void OpenFolder(FolderPointer folder)
     {
