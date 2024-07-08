@@ -1,11 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
-using UnityEngine.WSA;
-using System;
-using UnityEngine.AdaptivePerformance;
-using System.Threading;
 using UnityEngine.Events;
 
 public class DirectoryTransitionController

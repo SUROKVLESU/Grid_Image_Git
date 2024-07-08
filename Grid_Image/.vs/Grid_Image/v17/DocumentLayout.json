@@ -3,7 +3,23 @@
   "WorkspaceRootPath": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\folderpointer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\directorytransitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\directorytransitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\file_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\file_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\arrayfolders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\arrayfolders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\arraytransitionnumbersfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\arraytransitionnumbersfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|c:\\unity_next_surok_001\\grid_image_git\\grid_image\\assets\\fire_conductor\\folderpointer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\folderpointer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -13,22 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\folder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\folder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|c:\\unity_next_surok_001\\grid_image_git\\grid_image\\assets\\fire_conductor\\file_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\file_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\directorytransitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\directorytransitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\arraytransitionnumbersfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\arraytransitionnumbersfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\assets\\fire_conductor\\arrayfolders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{046DF619-3726-737E-A695-A710ED2BEB83}|Assembly-CSharp.csproj|solutionrelative:assets\\fire_conductor\\arrayfolders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,91 +54,91 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "FolderButtonController.cs",
               "DocumentMoniker": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\FolderButtonController.cs",
               "RelativeDocumentMoniker": "Assets\\Fire_Conductor\\FolderButtonController.cs",
               "ToolTip": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\FolderButtonController.cs",
               "RelativeToolTip": "Assets\\Fire_Conductor\\FolderButtonController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAaAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-07T07:44:03.537Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "FolderPointer.cs",
               "DocumentMoniker": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\FolderPointer.cs",
               "RelativeDocumentMoniker": "Assets\\Fire_Conductor\\FolderPointer.cs",
               "ToolTip": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\FolderPointer.cs",
               "RelativeToolTip": "Assets\\Fire_Conductor\\FolderPointer.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAA1wBMAAAA7AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-06T11:04:37.597Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "ArrayTransitionNumbersFolder.cs",
               "DocumentMoniker": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\ArrayTransitionNumbersFolder.cs",
               "RelativeDocumentMoniker": "Assets\\Fire_Conductor\\ArrayTransitionNumbersFolder.cs",
               "ToolTip": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\ArrayTransitionNumbersFolder.cs",
               "RelativeToolTip": "Assets\\Fire_Conductor\\ArrayTransitionNumbersFolder.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAkwA0AAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-06T08:18:47.602Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Folder.cs",
               "DocumentMoniker": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\Folder.cs",
               "RelativeDocumentMoniker": "Assets\\Fire_Conductor\\Folder.cs",
               "ToolTip": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\Folder.cs",
               "RelativeToolTip": "Assets\\Fire_Conductor\\Folder.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-03T06:19:35.79Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "DirectoryTransitionController.cs",
               "DocumentMoniker": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\DirectoryTransitionController.cs",
               "RelativeDocumentMoniker": "Assets\\Fire_Conductor\\DirectoryTransitionController.cs",
               "ToolTip": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\DirectoryTransitionController.cs",
               "RelativeToolTip": "Assets\\Fire_Conductor\\DirectoryTransitionController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEEAAAAJAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAB8AAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-03T05:37:16.744Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "ArrayFolders.cs",
               "DocumentMoniker": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\ArrayFolders.cs",
               "RelativeDocumentMoniker": "Assets\\Fire_Conductor\\ArrayFolders.cs",
               "ToolTip": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\ArrayFolders.cs",
               "RelativeToolTip": "Assets\\Fire_Conductor\\ArrayFolders.cs",
-              "ViewState": "AQIAABoAAAAAAAAAAAAIwCYAAAA4AAAA",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAIwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-02T18:00:16.308Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "File_Controller.cs",
               "DocumentMoniker": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\File_Controller.cs",
               "RelativeDocumentMoniker": "Assets\\Fire_Conductor\\File_Controller.cs",
               "ToolTip": "C:\\UNITY_NEXT_SUROK_001\\Grid_Image_Git\\Grid_Image\\Assets\\Fire_Conductor\\File_Controller.cs",
               "RelativeToolTip": "Assets\\Fire_Conductor\\File_Controller.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAABOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-02T10:32:12.151Z",
               "EditorCaption": ""

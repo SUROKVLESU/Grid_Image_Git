@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using System.Threading;
-using TMPro;
 
 public class File_Controller : MonoBehaviour
 {

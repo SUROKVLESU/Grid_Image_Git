@@ -1,10 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using Unity.Burst.Intrinsics;
-using UnityEngine;
-using UnityEngine.Windows;
 
 public class ArrayFolders
 {
