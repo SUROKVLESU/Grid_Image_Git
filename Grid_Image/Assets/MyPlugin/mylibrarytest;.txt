@@ -1,0 +1,53 @@
+package com.example.mylibrarytest;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Environment;
+import android.widget.Toast;
+
+import com.unity3d.player.UnityPlayer;
+
+import java.io.File;
+
+public class PluginFolder
+{
+    
+    public static String GetRootDirectory() {
+        return  Environment.getExternalStorageDirectory().getAbsolutePath();
+    }
+
+    public static String[] GetDirectories(String path) {
+        File[] files = (new File(path)).listFiles();
+        int CountDirectory = 0;
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isDirectory()) CountDirectory++;
+        }
+        int index = 0;
+        String[] arrDirectories = new String[CountDirectory];
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isDirectory()) {
+                arrDirectories[index] = files[i].getAbsolutePath();
+                index++;
+            }
+        }
+        return arrDirectories;
+    }
+
+    public static String GetDirectoryName(String path) {
+        return (new File(path)).getName();
+    }
+
+    public static boolean IsAccessToMemory() {
+        if (UnityPlayer.currentContext.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            UnityPlayer.currentActivity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            return false;
+        }
+    }
+    public static void Print(String str)
+    {
+        Toast.makeText(UnityPlayer.currentActivity,str,Toast.LENGTH_LONG).show();
+    }
+}

@@ -6,12 +6,17 @@ public class File_Controller : MonoBehaviour
 {
     private DirectoryTransitionController DirectoryTransitionController;
     private FolderButtonController FolderButtonController;
+    public static AndroidJavaClass PluginFolder;
+    //не забудь про очистку ресурсов
 
-    public Text TextMeshPro;
 
     public void Awake()
     {
-        DirectoryTransitionController = new DirectoryTransitionController(DriveInfo.GetDrives());
+        PluginFolder = new AndroidJavaClass("com.example.mylibrarytest.PluginFolder");
+        /*string str = PluginFolder.CallStatic<string>("GetRootDirectory");
+        PluginFolder.CallStatic("Print",str);*/
+        DirectoryTransitionController = 
+            new DirectoryTransitionController(PluginFolder.CallStatic<string>("GetRootDirectory"));
     }
     public void Start()
     {

@@ -22,7 +22,9 @@ public class ArrayFolders
     }
     public ArrayFolders(FolderPointer folderPointer)
     {
-        DirectoryInfo[] ArrayGetDirectories = folderPointer.GetDirectoryInfo.GetDirectories();
+        string[] ArrayGetDirectories =
+            File_Controller.PluginFolder.CallStatic<string[]>("GetDirectories", folderPointer.GetDirectoryInfo);
+        //string[] ArrayGetDirectories = folderPointer.GetDirectoryInfo.GetDirectories();
         ArrayFoldersDirectory = new FolderPointer[ArrayGetDirectories.Length];
         for (int i = 0; i < ArrayGetDirectories.Length; i++)
         {
@@ -32,7 +34,7 @@ public class ArrayFolders
         ParentFolder = folderPointer;
         ParentFolder.SetBeenHereAndUniqueFolderNumber();
     }
-    public ArrayFolders(DirectoryInfo[] directories)//используется для создание несуществующей папки
+    public ArrayFolders(string[] directories)//используется для создание несуществующей папки
                                                     //с дисками внутри
     {
         ArrayFoldersDirectory = new FolderPointer[directories.Length];

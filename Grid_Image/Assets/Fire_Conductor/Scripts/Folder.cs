@@ -15,7 +15,7 @@ public class Folder
         ArrayFolders = new ArrayFolders(parentFolder)
         };   
     }
-    public static Folder NullFolder(DirectoryInfo[] directories)
+    public static Folder NullFolder(string[] directories)
     {
         return new Folder()
         {

@@ -76,7 +76,9 @@ public class FolderButtonController : MonoBehaviour
                         break;
                 }
                 ButtonsFolder[i].gameObject.transform.parent.gameObject.SetActive(true);
-                ButtonsTextMeshPro[i].text = SelectedFolder[IndexNextFolder + i].GetDirectoryInfo.Name;
+                ButtonsTextMeshPro[i].text =
+                    File_Controller.PluginFolder.CallStatic<string>("GetDirectoryName", SelectedFolder[IndexNextFolder + i].GetDirectoryInfo);
+                //SelectedFolder[IndexNextFolder + i].GetDirectoryInfo.Name;
             }
             else
             {

@@ -10,10 +10,11 @@ public class DirectoryTransitionController
     public UnityAction IFinished = new UnityAction(() => { });
 
     public Folder GetSelectedFolder => SelectedFolder;
-    public DirectoryTransitionController(DriveInfo[] drives)//нужен для создания нулевой папки
+    public DirectoryTransitionController(string drives)//нужен для создания нулевой папки
     {
-        DirectoryInfo[] directoryInfos = new DirectoryInfo[drives.Length];
-        for (int i = 0; i < directoryInfos.Length; i++) directoryInfos[i] = drives[i].RootDirectory;
+        string[] directoryInfos =
+            File_Controller.PluginFolder.CallStatic<string[]>("GetDirectories", drives);
+        //for (int i = 0; i < directoryInfos.Length; i++) directoryInfos[i] = drives[i].RootDirectory;
         Folders = new Folder[1] {Folder.NullFolder(directoryInfos) };
         SelectedFolder = Folders[0];
         ArrayTransitionNumbersFolder = new ArrayTransitionNumbersFolder();
