@@ -9,7 +9,7 @@ public class ArrayFolders
 
     public int GetCountFolder => CountFolder;
     public FolderPointer GetParentFolder => ParentFolder;
-    private bool ThereAreFolders => CountFolder != 0;//папки есть
+    private bool ThereAreFolders => CountFolder > 0;//папки есть
 
     public FolderPointer this[int index]
     {
@@ -24,7 +24,6 @@ public class ArrayFolders
     {
         string[] ArrayGetDirectories =
             File_Controller.PluginFolder.CallStatic<string[]>("GetDirectories", folderPointer.GetDirectoryInfo);
-        //string[] ArrayGetDirectories = folderPointer.GetDirectoryInfo.GetDirectories();
         ArrayFoldersDirectory = new FolderPointer[ArrayGetDirectories.Length];
         for (int i = 0; i < ArrayGetDirectories.Length; i++)
         {

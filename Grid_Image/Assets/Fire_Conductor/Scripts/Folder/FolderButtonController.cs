@@ -7,7 +7,7 @@ public class FolderButtonController : MonoBehaviour
     private Button[] ButtonsFolder;
     private Button ButtonExitingFolder;
     private Button[] ButtonsBackForward;
-    private Text[] ButtonsTextMeshPro;
+    private Text[] ButtonsText;
     private Folder SelectedFolder;
     private int IndexNextFolder;
     private static int IndexSelectedFolder = 0;
@@ -76,9 +76,8 @@ public class FolderButtonController : MonoBehaviour
                         break;
                 }
                 ButtonsFolder[i].gameObject.transform.parent.gameObject.SetActive(true);
-                ButtonsTextMeshPro[i].text =
+                ButtonsText[i].text =
                     File_Controller.PluginFolder.CallStatic<string>("GetDirectoryName", SelectedFolder[IndexNextFolder + i].GetDirectoryInfo);
-                //SelectedFolder[IndexNextFolder + i].GetDirectoryInfo.Name;
             }
             else
             {
@@ -97,16 +96,16 @@ public class FolderButtonController : MonoBehaviour
             ArrayGameObjects[i] = ThisParentGameObject.GetChild(i).gameObject;
         }
         ButtonsFolder = new Button[ArrayGameObjects.Length-2];
-        for (int i = 0; i < ArrayGameObjects.Length-2; i++)
+        for (int i = 0; i < ArrayGameObjects.Length-2; i++)//Смотри дерево объектов в Unity
         {
             ButtonsFolder[i] = ArrayGameObjects[i].GetComponentInChildren<Button>();
         }
         ButtonExitingFolder = ArrayGameObjects[ArrayGameObjects.Length - 1].GetComponent<Button>();
         ButtonsBackForward = ArrayGameObjects[ArrayGameObjects.Length - 2].GetComponentsInChildren<Button>();
-        ButtonsTextMeshPro = new Text[ButtonsFolder.Length];
+        ButtonsText = new Text[ButtonsFolder.Length];
         for (int i = 0; i < ButtonsFolder.Length; i++)
         {
-            ButtonsTextMeshPro[i] = ButtonsFolder[i].transform.parent.GetComponentInChildren<Text>();
+            ButtonsText[i] = ButtonsFolder[i].transform.parent.GetComponentInChildren<Text>();
         }
         ButtonExitingFolder.onClick.AddListener(()=> OnClickButtonExitingFolder());
         ButtonsBackForward[0].onClick.AddListener(() => {
