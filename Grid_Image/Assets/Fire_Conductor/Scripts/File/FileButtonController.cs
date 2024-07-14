@@ -27,6 +27,7 @@ internal class FileButtonController : MonoBehaviour
     private Sprite Sprite;
 
     private bool IsDownloadImage;
+    private Coroutine[] Coroutine;
 
     public void ButtonInitialization()
     {
@@ -57,6 +58,7 @@ internal class FileButtonController : MonoBehaviour
         WidthImage = ImagesFile[0].rectTransform.rect.width;
         HeightImage = ImagesFile[0].rectTransform.rect.height;
         Sprite = ImagesFile[0].sprite;
+        Coroutine = new Coroutine[8];
     }
     public void ChangingSelectedGroupFiles(GroupFiles groupFiles)
     {
@@ -66,6 +68,13 @@ internal class FileButtonController : MonoBehaviour
     public void UpdateButtons()
     {
         IsDownloadImage = true;
+        foreach (var file in Coroutine)
+        {
+            if (file != null)
+            {
+                StopCoroutine(file);
+            }
+        }
         if (!(IndexNextFile < SelectedGroupFiles.GetCountFile && IndexNextFile >= 0)) IndexNextFile = 0;
         for (int i = 0; i < ButtonsFile.Length; i++)
         {
@@ -267,13 +276,14 @@ internal class FileButtonController : MonoBehaviour
                 //
                 if (IsImage(SelectedGroupFiles[IndexNextFile + i]))
                 {
-                    StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]));
+                    Coroutine[i] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]));
                 }
             }
             else
             {
                 ButtonsFile[i].onClick.RemoveAllListeners();
                 ButtonsFile[i].gameObject.transform.parent.gameObject.SetActive(false);
+                Coroutine[i] = null;
             }
         }
     }
