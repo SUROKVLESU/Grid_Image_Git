@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -24,6 +25,8 @@ internal class FileButtonController : MonoBehaviour
     private float WidthImage;
     private float HeightImage;
     private Sprite Sprite;
+
+    private bool IsDownloadImage;
 
     public void ButtonInitialization()
     {
@@ -62,6 +65,7 @@ internal class FileButtonController : MonoBehaviour
     }
     public void UpdateButtons()
     {
+        IsDownloadImage = true;
         if (!(IndexNextFile < SelectedGroupFiles.GetCountFile && IndexNextFile >= 0)) IndexNextFile = 0;
         for (int i = 0; i < ButtonsFile.Length; i++)
         {
@@ -273,21 +277,34 @@ internal class FileButtonController : MonoBehaviour
             }
         }
     }
-    IEnumerator DownloadImage(string MediaUrl,Image image)
+    IEnumerator DownloadImage(string MediaUrl, Image image)
     {
-        image.gameObject.transform.parent.gameObject.SetActive (false);
+        while (true)
+        {
+            if (IsDownloadImage)
+            {
+                IsDownloadImage = false;
+                image.gameObject.transform.parent.gameObject.SetActive(false);
 
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://"+MediaUrl);
-        yield return request.SendWebRequest();
-        Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
+                UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + MediaUrl);
+                yield return request.SendWebRequest();
+                Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
 
-        ScaleImage(image, tex.width,tex.height);
+                ScaleImage(image, tex.width, tex.height);
 
-        Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 1, tex.height / 1));
-        image.overrideSprite = sprite;
+                Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 1, tex.height / 1));
+                image.overrideSprite = sprite;
 
-        image.gameObject.transform.parent.gameObject.SetActive(true);
-        request.Dispose();
+                image.gameObject.transform.parent.gameObject.SetActive(true);
+                request.Dispose();
+                break;
+            }
+            else
+            {
+                yield return new WaitForFixedUpdate();
+            }
+        }
+        IsDownloadImage = true;
     }
     private void ScaleImage(Image image,float width,float height)
     {

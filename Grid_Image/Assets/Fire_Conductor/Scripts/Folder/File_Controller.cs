@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.IO;
-using UnityEngine.UI;
 
 public class File_Controller : MonoBehaviour
 {
