@@ -8,9 +8,13 @@ using UnityEngine.Networking;
 public class WWWTest : MonoBehaviour
 {
     public Image image;
-    private string path = "C:\\ps4-the-crew-2_1.jpg";
+    public static AndroidJavaClass PluginFolder;
+    private string path ;
     private void Start()
     {
+        PluginFolder = new AndroidJavaClass("com.example.mylibrarytest.PluginFolder");
+        path = Application.dataPath;
+        PluginFolder.CallStatic("Print",path);
         StartCoroutine(DownloadImage2(path));
     }
     IEnumerator DownloadImage(string MediaUrl)

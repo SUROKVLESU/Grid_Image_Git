@@ -21,6 +21,10 @@ internal class FileButtonController : MonoBehaviour
     private Button[] ButtonsBackForward;
     private Image[] ImagesFile;
 
+    private float WidthImage;
+    private float HeightImage;
+    private Sprite Sprite;
+
     public void ButtonInitialization()
     {
         Transform ThisParentGameObject = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(1);
@@ -47,6 +51,9 @@ internal class FileButtonController : MonoBehaviour
             IndexNextFile += ButtonsFile.Length;
             UpdateButtons();
         });
+        WidthImage = ImagesFile[0].rectTransform.rect.width;
+        HeightImage = ImagesFile[0].rectTransform.rect.height;
+        Sprite = ImagesFile[0].sprite;
     }
     public void ChangingSelectedGroupFiles(GroupFiles groupFiles)
     {
@@ -248,7 +255,12 @@ internal class FileButtonController : MonoBehaviour
                 TextFile[i].text =
                     File_Controller.PluginFolder.CallStatic<string>
                     ("GetFileName", SelectedGroupFiles[IndexNextFile + i]);
-                if(IsImage(SelectedGroupFiles[IndexNextFile + i]))
+                //
+                ImagesFile[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, HeightImage);
+                ImagesFile[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, WidthImage);
+                ImagesFile[i].overrideSprite = Sprite;
+                //
+                if (IsImage(SelectedGroupFiles[IndexNextFile + i]))
                 {
                     StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]));
                 }
@@ -262,9 +274,11 @@ internal class FileButtonController : MonoBehaviour
     }
     IEnumerator DownloadImage(string MediaUrl,Image image)
     {
+        image.gameObject.transform.parent.gameObject.SetActive (false);
+
         float widthImage = image.rectTransform.rect.width;
         float heightImage = image.rectTransform.rect.width;
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(MediaUrl);
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://"+MediaUrl);
         yield return request.SendWebRequest();
         Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
 
@@ -282,6 +296,8 @@ internal class FileButtonController : MonoBehaviour
 
         Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 1, tex.height / 1));
         image.overrideSprite = sprite;
+        image.gameObject.transform.parent.gameObject.SetActive(true);
+        request.Dispose();
     }
     private bool IsImage(string path)
     {
