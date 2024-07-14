@@ -40,7 +40,7 @@ internal class FileButtonController : MonoBehaviour
         {
             TextFile[i] = ArrayGameObjects[i].GetComponentInChildren<Text>();
             ButtonsFile[i] = ArrayGameObjects[i].GetComponentInChildren<Button>();
-            ImagesFile[i] = ArrayGameObjects[i].GetComponentInChildren<Image>();
+            ImagesFile[i] = ArrayGameObjects[i].transform.GetChild(2).GetComponent<Image>();
         }
         ButtonsBackForward = ArrayGameObjects[ArrayGameObjects.Length-1].GetComponentsInChildren<Button>();
         ButtonsBackForward[0].onClick.AddListener(() => {
@@ -258,6 +258,7 @@ internal class FileButtonController : MonoBehaviour
                 //
                 ImagesFile[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, HeightImage);
                 ImagesFile[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, WidthImage);
+                ImagesFile[i].rectTransform.rotation = Quaternion.Euler(0, 0, 0);
                 ImagesFile[i].overrideSprite = Sprite;
                 //
                 if (IsImage(SelectedGroupFiles[IndexNextFile + i]))
@@ -276,28 +277,57 @@ internal class FileButtonController : MonoBehaviour
     {
         image.gameObject.transform.parent.gameObject.SetActive (false);
 
-        float widthImage = image.rectTransform.rect.width;
-        float heightImage = image.rectTransform.rect.width;
         UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://"+MediaUrl);
         yield return request.SendWebRequest();
         Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
 
-        float newWidth = tex.width / (tex.height / heightImage);
-        if (newWidth <= widthImage)
-        {
-            image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, heightImage);
-            image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, tex.width / (tex.height / heightImage));
-        }
-        else
-        {
-            image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, tex.height / (tex.width / widthImage));
-            image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, widthImage);
-        }
+        ScaleImage(image, tex.width,tex.height);
 
         Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 1, tex.height / 1));
         image.overrideSprite = sprite;
+
         image.gameObject.transform.parent.gameObject.SetActive(true);
         request.Dispose();
+    }
+    private void ScaleImage(Image image,float width,float height)
+    {
+        float newWidth;
+        float newHeight;
+        if (height>=width)
+        {
+            newWidth = width / (height / HeightImage);
+            if (newWidth <= WidthImage)
+            {
+                image.rectTransform.SetSizeWithCurrentAnchors
+                    (RectTransform.Axis.Horizontal, newWidth);
+            }
+            else
+            {
+                newHeight = HeightImage / (newWidth / WidthImage);
+                image.rectTransform.SetSizeWithCurrentAnchors
+                    (RectTransform.Axis.Vertical, newHeight);
+            }
+        }
+        else
+        {
+            newHeight = height / (width / HeightImage);
+            if (newHeight <= WidthImage)
+            {
+                image.rectTransform.SetSizeWithCurrentAnchors
+                    (RectTransform.Axis.Vertical, newHeight);
+                image.rectTransform.SetSizeWithCurrentAnchors
+                    (RectTransform.Axis.Horizontal, HeightImage);
+            }
+            else
+            {
+                newWidth = HeightImage / (newHeight / WidthImage);
+                image.rectTransform.SetSizeWithCurrentAnchors
+                    (RectTransform.Axis.Vertical, WidthImage);
+                image.rectTransform.SetSizeWithCurrentAnchors
+                    (RectTransform.Axis.Horizontal, newWidth);
+            }
+            image.rectTransform.rotation = Quaternion.Euler(0, 0, 90);
+        }
     }
     private bool IsImage(string path)
     {
