@@ -67,6 +67,7 @@ internal class FileButtonController : MonoBehaviour
     }
     public void UpdateButtons()
     {
+        //System.GC.Collect();
         IsDownloadImage = true;
         foreach (var file in Coroutine)
         {
@@ -86,181 +87,81 @@ internal class FileButtonController : MonoBehaviour
                     case 0:
                         ButtonsFile[0].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 0;
-                            //OnClickOpenFolder();
+                            if (IsImage(SelectedGroupFiles[IndexNextFile + i]))
+                            {
+                                Coroutine[0] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 0], ImagesFile[0]));
+                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                            }
                         });
                         break;
                     case 1:
                         ButtonsFile[1].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 1;
-                            //OnClickOpenFolder();
+                            if (IsImage(SelectedGroupFiles[IndexNextFile + 1]))
+                            {
+                                Coroutine[1] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 1], ImagesFile[1]));
+                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                            }
                         });
                         break;
                     case 2:
                         ButtonsFile[2].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 2;
-                            //OnClickOpenFolder();
+                            if (IsImage(SelectedGroupFiles[IndexNextFile + 2]))
+                            {
+                                Coroutine[2] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 2], ImagesFile[2]));
+                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                            }
                         });
                         break;
                     case 3:
                         ButtonsFile[3].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 3;
-                            //OnClickOpenFolder();
+                            if (IsImage(SelectedGroupFiles[IndexNextFile + 3]))
+                            {
+                                Coroutine[3] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 3], ImagesFile[3]));
+                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                            }
                         });
                         break;
                     case 4:
                         ButtonsFile[4].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 4;
-                            //OnClickOpenFolder();
+                            if (IsImage(SelectedGroupFiles[IndexNextFile + 4]))
+                            {
+                                Coroutine[4] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 4], ImagesFile[4]));
+                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                            }
                         });
                         break;
                     case 5:
                         ButtonsFile[5].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 5;
-                            //OnClickOpenFolder();
+                            if (IsImage(SelectedGroupFiles[IndexNextFile + 5]))
+                            {
+                                Coroutine[5] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 5], ImagesFile[5]));
+                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                            }
                         });
                         break;
                     case 6:
                         ButtonsFile[6].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 6;
-                            //OnClickOpenFolder();
+                            if (IsImage(SelectedGroupFiles[IndexNextFile + 6]))
+                            {
+                                Coroutine[6] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 6], ImagesFile[6]));
+                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                            }
                         });
                         break;
                     case 7:
                         ButtonsFile[7].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 8;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 8:
-                        ButtonsFile[8].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 8;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 9:
-                        ButtonsFile[9].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 9;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 10:
-                        ButtonsFile[10].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 10;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 11:
-                        ButtonsFile[11].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 11;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 12:
-                        ButtonsFile[12].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 12;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 13:
-                        ButtonsFile[13].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 13;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 14:
-                        ButtonsFile[14].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 14;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 15:
-                        ButtonsFile[15].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 15;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 16:
-                        ButtonsFile[16].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 16;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 17:
-                        ButtonsFile[17].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 17;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 18:
-                        ButtonsFile[18].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 18;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 19:
-                        ButtonsFile[19].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 19;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 20:
-                        ButtonsFile[20].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 20;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 21:
-                        ButtonsFile[21].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 21;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 22:
-                        ButtonsFile[22].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 22;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 23:
-                        ButtonsFile[23].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 23;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 24:
-                        ButtonsFile[24].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 24;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 25:
-                        ButtonsFile[25].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 25;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 26:
-                        ButtonsFile[26].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 26;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 27:
-                        ButtonsFile[27].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 27;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 28:
-                        ButtonsFile[28].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 28;
-                            //OnClickOpenFolder();
-                        });
-                        break;
-                    case 29:
-                        ButtonsFile[29].onClick.AddListener(() => {
-                            IndexSelectedFile = IndexNextFile + 29;
-                            //OnClickOpenFolder();
+                            IndexSelectedFile = IndexNextFile + 7;
+                            if (IsImage(SelectedGroupFiles[IndexNextFile + 7]))
+                            {
+                                Coroutine[7] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 7], ImagesFile[7]));
+                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                            }
                         });
                         break;
                 }
@@ -274,10 +175,11 @@ internal class FileButtonController : MonoBehaviour
                 ImagesFile[i].rectTransform.rotation = Quaternion.Euler(0, 0, 0);
                 ImagesFile[i].overrideSprite = Sprite;
                 //
-                if (IsImage(SelectedGroupFiles[IndexNextFile + i]))
+                /*if (IsImage(SelectedGroupFiles[IndexNextFile + i]))
                 {
-                    Coroutine[i] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]));
-                }
+                    //Coroutine[i] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]));
+                    //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
+                }*/
             }
             else
             {
@@ -285,6 +187,19 @@ internal class FileButtonController : MonoBehaviour
                 ButtonsFile[i].gameObject.transform.parent.gameObject.SetActive(false);
                 Coroutine[i] = null;
             }
+        }
+    }
+    private void Print(string path,Image image)
+    {
+        byte[] bytes = File.ReadAllBytes(path);
+        Texture2D tex = new Texture2D(700, 700);
+        if(ImageConversion.LoadImage(tex, bytes,true))
+        {
+            ScaleImage(image, tex.width, tex.height);
+            Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));//tex.width / 2, tex.height / 2
+            image.overrideSprite = sprite;
+
+            image.gameObject.transform.parent.gameObject.SetActive(true);
         }
     }
     IEnumerator DownloadImage(string MediaUrl, Image image)
@@ -296,18 +211,20 @@ internal class FileButtonController : MonoBehaviour
                 IsDownloadImage = false;
                 image.gameObject.transform.parent.gameObject.SetActive(false);
 
-                UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + MediaUrl);
-                yield return request.SendWebRequest();
-                Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
+                using (UnityWebRequest request = UnityWebRequestTexture.GetTexture("file://" + MediaUrl))
+                {
+                    yield return request.SendWebRequest();
+                    Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
 
-                ScaleImage(image, tex.width, tex.height);
+                    ScaleImage(image, tex.width, tex.height);
 
-                Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 1, tex.height / 1));
-                image.overrideSprite = sprite;
+                    Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 5f);//tex.width / 2, tex.height / 2
+                    image.overrideSprite = sprite;
 
-                image.gameObject.transform.parent.gameObject.SetActive(true);
-                request.Dispose();
-                break;
+                    image.gameObject.transform.parent.gameObject.SetActive(true);
+                    //request.Dispose();
+                    break;
+                }
             }
             else
             {

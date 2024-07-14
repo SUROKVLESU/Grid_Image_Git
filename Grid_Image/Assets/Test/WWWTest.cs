@@ -4,54 +4,34 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.IO;
+
 
 public class WWWTest : MonoBehaviour
 {
     public Image image;
-    public static AndroidJavaClass PluginFolder;
+    //public static AndroidJavaClass PluginFolder;
     private string path ;
+    private byte[] Mybytes;
     private void Start()
     {
-        PluginFolder = new AndroidJavaClass("com.example.mylibrarytest.PluginFolder");
-        path = Application.dataPath;
-        PluginFolder.CallStatic("Print",path);
-        StartCoroutine(DownloadImage2(path));
-    }
-    IEnumerator DownloadImage(string MediaUrl)
-    {
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(MediaUrl);
-        Debug.Log("Tic");
-        yield return request.SendWebRequest();
-            //image.texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
-
-        Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
-        image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,tex.width);
-        image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, tex.height);
-        Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 1, tex.height / 1));
-            image.overrideSprite = sprite;
-    }
-    IEnumerator DownloadImage2(string MediaUrl)
-    {
-        float widthImage = image.rectTransform.rect.width;
-        float heightImage = image.rectTransform.rect.width;
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(MediaUrl);
-        yield return request.SendWebRequest();
-        Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
-
-        float newWidth = tex.width / (tex.height / heightImage);
-        if(newWidth <= widthImage)
-        {
-            image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, heightImage);
-            image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, tex.width / (tex.height / heightImage));
-        }
-        else
-        {
-            image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, tex.height/(tex.width/widthImage));
-            image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, widthImage);
-        }
-
-        Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 1, tex.height / 1));
+        path = "C:\\1.png";
+        Mybytes = File.ReadAllBytes(path);
+        Texture2D texture2D = new Texture2D(700,700);
+        ImageConversion.LoadImage(texture2D, Mybytes);
+        image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, texture2D.width);
+        image.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, texture2D.height);
+        Sprite sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), 1000f);
         image.overrideSprite = sprite;
+
+        string jpgFile = "C:\\Test\\22.png";
+        //Texture2D tex = new Texture2D(Screen.width, Screen.height);
+        //tex = new Texture2D(sprite.texture);
+        //tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
+        //tex.Apply();
+        var bytes = sprite.texture.EncodeToJPG();
+        //Destroy(tex);
+        System.IO.File.WriteAllBytes(jpgFile, bytes);
     }
 }
 
