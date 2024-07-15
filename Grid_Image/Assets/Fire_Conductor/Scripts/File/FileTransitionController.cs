@@ -9,7 +9,7 @@ public class FileTransitionController
 
     public UnityAction<GroupFiles> ChangingSelectedGroupFiles;
 
-
+    public Texture2D GetSelectedTexture => SelectedTexture;
     public GroupFiles GetSelectedGroupFiles => SelectedGroupFiles;
     public void ChangingSelectedFolder(Folder folder)
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class File_Controller : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class File_Controller : MonoBehaviour
     public static AndroidJavaClass PluginFolder;
     //не забудь про очистку ресурсов
 
+    public UnityAction OnClickSaveButtonFile;
 
     public void Awake()
     {
@@ -55,6 +57,11 @@ public class File_Controller : MonoBehaviour
         UpdateSaveButton();
         FileButtonController.NewSelectedTexture += FileTransitionController.SetSelectedTexture;
         FileButtonController.NewSelectedTexture += SaveImageButton.OnImageSaveButton;
+        SaveImageButton.OnClickSaveButton += ()=> 
+        {
+            OnClickSaveButtonFile();
+            this.gameObject.SetActive(false);
+        };
     }
     private void UpdateSaveButton()
     {
@@ -66,5 +73,9 @@ public class File_Controller : MonoBehaviour
         {
             SaveImageButton.OffSaveButton();
         }
+    }
+    public Texture2D GetTexture()
+    {
+        return FileTransitionController.GetSelectedTexture;
     }
 }

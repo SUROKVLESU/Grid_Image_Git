@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class SaveImageButton : MonoBehaviour
@@ -8,6 +9,9 @@ public class SaveImageButton : MonoBehaviour
     private Button SaveButton;
     private Image ImageButton;
     private Color Color;
+
+    public UnityAction OnClickSaveButton;
+
     public void ButtonInitialization()
     {
         SaveButton = 
@@ -15,6 +19,8 @@ public class SaveImageButton : MonoBehaviour
         ImageButton = 
             this.gameObject.transform.GetChild(0).GetChild(0).GetChild(2).GetComponent<Image>();
         Color = ImageButton.color;
+        SaveButton.onClick.RemoveAllListeners();
+        SaveButton.onClick.AddListener(() => { OnClickSaveButton(); });
     }
     public void OffSaveButton()
     {
@@ -30,5 +36,4 @@ public class SaveImageButton : MonoBehaviour
         ImageButton.color = Color.green;
         SaveButton.enabled = true;
     }
-
 }
