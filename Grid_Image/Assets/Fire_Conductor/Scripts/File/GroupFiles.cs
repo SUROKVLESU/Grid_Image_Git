@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 
 public class GroupFiles : MonoBehaviour
@@ -24,9 +25,9 @@ public class GroupFiles : MonoBehaviour
         UniqueGroupFilesNumber = Directory.GetParentFolder.GetUniqueFolderNumber;
         if(Directory.GetParentFolder.GetDirectoryInfo!=null)
         {
-            Files =
-            File_Controller.PluginFolder.CallStatic<string[]>
-                ("GetFiles", Directory.GetParentFolder.GetDirectoryInfo);
+            Files = Sort
+            (File_Controller.PluginFolder.CallStatic<string[]>
+                ("GetFiles", Directory.GetParentFolder.GetDirectoryInfo));
             CountFile = Files.Length;
         }
         else
@@ -34,5 +35,32 @@ public class GroupFiles : MonoBehaviour
             Files = new string[0];
             CountFile = 0;
         }
+    }
+    private bool IsImage(string path)
+    {
+        string ext = Path.GetExtension(path);
+        if (ext.Equals(".png")) { return true; };
+        if (ext.Equals(".jpeg")) { return true; };
+        if (ext.Equals(".jpg")) { return true; };
+        return false;
+    }
+    private string[] Sort(string[] files)
+    {
+        int countImage = 0;
+        foreach (string file in files)
+        {
+            if (IsImage(file)) { countImage++; }
+        }
+        string[] sort = new string[countImage];
+        int index = countImage-1;
+        foreach (var item in files)
+        {
+            if (IsImage(item)) 
+            { 
+                sort[index] = item;
+                index--;
+            }
+        }
+        return sort;
     }
 }

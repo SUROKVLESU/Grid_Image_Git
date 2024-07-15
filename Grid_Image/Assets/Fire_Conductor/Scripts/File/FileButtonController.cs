@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -28,6 +23,8 @@ internal class FileButtonController : MonoBehaviour
 
     private bool IsDownloadImage;
     private Coroutine[] Coroutine;
+
+    public UnityAction<Texture2D> NewSelectedTexture;
 
     public void ButtonInitialization()
     {
@@ -67,7 +64,6 @@ internal class FileButtonController : MonoBehaviour
     }
     public void UpdateButtons()
     {
-        //System.GC.Collect();
         IsDownloadImage = true;
         foreach (var file in Coroutine)
         {
@@ -87,81 +83,49 @@ internal class FileButtonController : MonoBehaviour
                     case 0:
                         ButtonsFile[0].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 0;
-                            if (IsImage(SelectedGroupFiles[IndexNextFile + i]))
-                            {
-                                Coroutine[0] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 0], ImagesFile[0]));
-                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                            }
+                            Coroutine[0] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 0], ImagesFile[0]));
                         });
                         break;
                     case 1:
                         ButtonsFile[1].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 1;
-                            if (IsImage(SelectedGroupFiles[IndexNextFile + 1]))
-                            {
-                                Coroutine[1] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 1], ImagesFile[1]));
-                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                            }
+                            Coroutine[1] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 1], ImagesFile[1]));
                         });
                         break;
                     case 2:
                         ButtonsFile[2].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 2;
-                            if (IsImage(SelectedGroupFiles[IndexNextFile + 2]))
-                            {
-                                Coroutine[2] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 2], ImagesFile[2]));
-                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                            }
+                            Coroutine[2] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 2], ImagesFile[2]));
                         });
                         break;
                     case 3:
                         ButtonsFile[3].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 3;
-                            if (IsImage(SelectedGroupFiles[IndexNextFile + 3]))
-                            {
-                                Coroutine[3] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 3], ImagesFile[3]));
-                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                            }
+                            Coroutine[3] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 3], ImagesFile[3]));
                         });
                         break;
                     case 4:
                         ButtonsFile[4].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 4;
-                            if (IsImage(SelectedGroupFiles[IndexNextFile + 4]))
-                            {
-                                Coroutine[4] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 4], ImagesFile[4]));
-                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                            }
+                            Coroutine[4] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 4], ImagesFile[4]));
                         });
                         break;
                     case 5:
                         ButtonsFile[5].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 5;
-                            if (IsImage(SelectedGroupFiles[IndexNextFile + 5]))
-                            {
-                                Coroutine[5] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 5], ImagesFile[5]));
-                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                            }
+                            Coroutine[5] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 5], ImagesFile[5]));
                         });
                         break;
                     case 6:
                         ButtonsFile[6].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 6;
-                            if (IsImage(SelectedGroupFiles[IndexNextFile + 6]))
-                            {
-                                Coroutine[6] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 6], ImagesFile[6]));
-                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                            }
+                            Coroutine[6] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 6], ImagesFile[6]));
                         });
                         break;
                     case 7:
                         ButtonsFile[7].onClick.AddListener(() => {
                             IndexSelectedFile = IndexNextFile + 7;
-                            if (IsImage(SelectedGroupFiles[IndexNextFile + 7]))
-                            {
-                                Coroutine[7] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 7], ImagesFile[7]));
-                                //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                            }
+                            Coroutine[7] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + 7], ImagesFile[7]));
                         });
                         break;
                 }
@@ -169,17 +133,10 @@ internal class FileButtonController : MonoBehaviour
                 TextFile[i].text =
                     File_Controller.PluginFolder.CallStatic<string>
                     ("GetFileName", SelectedGroupFiles[IndexNextFile + i]);
-                //
                 ImagesFile[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, HeightImage);
                 ImagesFile[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, WidthImage);
                 ImagesFile[i].rectTransform.rotation = Quaternion.Euler(0, 0, 0);
                 ImagesFile[i].overrideSprite = Sprite;
-                //
-                /*if (IsImage(SelectedGroupFiles[IndexNextFile + i]))
-                {
-                    //Coroutine[i] = StartCoroutine(DownloadImage(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]));
-                    //Print(SelectedGroupFiles[IndexNextFile + i], ImagesFile[i]);
-                }*/
             }
             else
             {
@@ -187,19 +144,6 @@ internal class FileButtonController : MonoBehaviour
                 ButtonsFile[i].gameObject.transform.parent.gameObject.SetActive(false);
                 Coroutine[i] = null;
             }
-        }
-    }
-    private void Print(string path,Image image)
-    {
-        byte[] bytes = File.ReadAllBytes(path);
-        Texture2D tex = new Texture2D(700, 700);
-        if(ImageConversion.LoadImage(tex, bytes,true))
-        {
-            ScaleImage(image, tex.width, tex.height);
-            Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));//tex.width / 2, tex.height / 2
-            image.overrideSprite = sprite;
-
-            image.gameObject.transform.parent.gameObject.SetActive(true);
         }
     }
     IEnumerator DownloadImage(string MediaUrl, Image image)
@@ -215,14 +159,11 @@ internal class FileButtonController : MonoBehaviour
                 {
                     yield return request.SendWebRequest();
                     Texture2D tex = ((DownloadHandlerTexture)request.downloadHandler).texture;
-
                     ScaleImage(image, tex.width, tex.height);
-
                     Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 5f);//tex.width / 2, tex.height / 2
                     image.overrideSprite = sprite;
-
                     image.gameObject.transform.parent.gameObject.SetActive(true);
-                    //request.Dispose();
+                    NewSelectedTexture(sprite.texture);
                     break;
                 }
             }
@@ -272,14 +213,6 @@ internal class FileButtonController : MonoBehaviour
             }
             image.rectTransform.rotation = Quaternion.Euler(0, 0, 90);
         }
-    }
-    private bool IsImage(string path)
-    {
-        string ext = Path.GetExtension(path);
-        if (ext.Equals(".png")) {  return true; };
-        if (ext.Equals(".jpeg")) { return true; };
-        if (ext.Equals(".jpg")) { return true; };
-        return false;
     }
 }
 

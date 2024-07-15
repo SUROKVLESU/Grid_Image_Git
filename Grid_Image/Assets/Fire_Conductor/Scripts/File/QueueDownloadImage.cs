@@ -6,7 +6,6 @@ internal class QueueDownloadImage : MonoBehaviour
 {
     private Action[] ArrDownloadImage;
     private bool IsLaunchPossible = true;//Можно ли запускать куротину
-    //private bool IsFinish = false;
 
     public void AddQueue(IEnumerator Coroutine)
     {

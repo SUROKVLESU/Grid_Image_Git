@@ -6,6 +6,7 @@ public class File_Controller : MonoBehaviour
     private FileTransitionController FileTransitionController;
     private FolderButtonController FolderButtonController;
     private FileButtonController FileButtonController;
+    private SaveImageButton SaveImageButton;
     public static AndroidJavaClass PluginFolder;
     //не забудь про очистку ресурсов
 
@@ -21,13 +22,13 @@ public class File_Controller : MonoBehaviour
     {
         FolderButtonController = gameObject.GetComponent<FolderButtonController>();
         FileButtonController = gameObject.GetComponent<FileButtonController>();
+        SaveImageButton = gameObject.GetComponent<SaveImageButton>();
         FolderButtonController.ButtonInitialization();
         FileButtonController.ButtonInitialization();
+        SaveImageButton.ButtonInitialization();
         FolderButtonController.Initialization(DirectoryTransitionController.GetSelectedFolder);
         FolderButtonController.UpdateButtons();
 
-        FolderButtonController.OnClickButtonExitingFolder -= () => { };
-        FolderButtonController.OnClickOpenFolder -= () => { };
         FolderButtonController.OnClickButtonExitingFolder += () =>
         {
             DirectoryTransitionController.ExitingFolder();
@@ -35,6 +36,7 @@ public class File_Controller : MonoBehaviour
             FolderButtonController.UpdateButtons();
 
             FileTransitionController.ChangingSelectedFolder(DirectoryTransitionController.GetSelectedFolder);
+            UpdateSaveButton();
         };
         FolderButtonController.OnClickOpenFolder += () =>
         {
@@ -44,12 +46,25 @@ public class File_Controller : MonoBehaviour
             FolderButtonController.UpdateButtons();
 
             FileTransitionController.ChangingSelectedFolder(DirectoryTransitionController.GetSelectedFolder);
+            UpdateSaveButton();
         };
 
-        FileTransitionController.ChangingSelectedGroupFiles -= (x) => { };
         FileTransitionController.ChangingSelectedGroupFiles += FileButtonController.ChangingSelectedGroupFiles;
 
         FileTransitionController.ChangingSelectedFolder(DirectoryTransitionController.GetSelectedFolder);
-
+        UpdateSaveButton();
+        FileButtonController.NewSelectedTexture += FileTransitionController.SetSelectedTexture;
+        FileButtonController.NewSelectedTexture += SaveImageButton.OnImageSaveButton;
+    }
+    private void UpdateSaveButton()
+    {
+        if (FileTransitionController.GetSelectedGroupFiles.GetCountFile > 0)
+        {
+            SaveImageButton.OnSaveButton();
+        }
+        else
+        {
+            SaveImageButton.OffSaveButton();
+        }
     }
 }

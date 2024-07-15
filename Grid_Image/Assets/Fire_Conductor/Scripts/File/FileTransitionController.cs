@@ -1,12 +1,16 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class FileTransitionController
 {
     private GroupFiles[] ArrGroupFiles;
     private GroupFiles SelectedGroupFiles;
+    private Texture2D SelectedTexture;
 
-    public UnityAction<GroupFiles> ChangingSelectedGroupFiles = new UnityAction<GroupFiles>((x) => { });
+    public UnityAction<GroupFiles> ChangingSelectedGroupFiles;
 
+
+    public GroupFiles GetSelectedGroupFiles => SelectedGroupFiles;
     public void ChangingSelectedFolder(Folder folder)
     {
         if(IsGroupFile(folder.GetParentFolder.GetUniqueFolderNumber))
@@ -57,5 +61,9 @@ public class FileTransitionController
             if (ArrGroupFiles[i].GetUniqueGroupFilesNumber == UniqueGroupFilesNumber) return ArrGroupFiles[i];
         }
         return null;
+    }
+    public void SetSelectedTexture(Texture2D tex)
+    {
+        SelectedTexture = tex;
     }
 }

@@ -24,14 +24,34 @@ public class WWWTest : MonoBehaviour
         Sprite sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), 1000f);
         image.overrideSprite = sprite;
 
+        Color MyColor;
+        for(int i = 0; i < sprite.textureRect.width; i++)
+        {
+            for (int j = 0; j < sprite.textureRect.height; j++)
+            {
+                MyColor = sprite.texture.GetPixel(i, j);
+                sprite.texture.SetPixel(i,j,new Color
+                    (MyColor.r+0.2f, MyColor.g - 0.2f, MyColor.b + 0.4f, MyColor.a));//r g b a
+            }
+        }
+
         string jpgFile = "C:\\Test\\22.png";
-        //Texture2D tex = new Texture2D(Screen.width, Screen.height);
-        //tex = new Texture2D(sprite.texture);
-        //tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
-        //tex.Apply();
         var bytes = sprite.texture.EncodeToJPG();
-        //Destroy(tex);
         System.IO.File.WriteAllBytes(jpgFile, bytes);
+
+    }
+    private void Print(string path, Image image)
+    {
+        byte[] bytes = File.ReadAllBytes(path);
+        Texture2D tex = new Texture2D(700, 700);
+        if (ImageConversion.LoadImage(tex, bytes, true))
+        {
+            //ScaleImage(image, tex.width, tex.height);
+            Sprite sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));//tex.width / 2, tex.height / 2
+            image.overrideSprite = sprite;
+
+            image.gameObject.transform.parent.gameObject.SetActive(true);
+        }
     }
 }
 

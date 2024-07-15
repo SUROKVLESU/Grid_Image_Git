@@ -12,8 +12,8 @@ public class FolderButtonController : MonoBehaviour
     private int IndexNextFolder;
     private static int IndexSelectedFolder = 0;
 
-    public UnityAction OnClickButtonExitingFolder = new UnityAction(()=> { });
-    public UnityAction OnClickOpenFolder = new UnityAction(() => { });
+    public UnityAction OnClickButtonExitingFolder;
+    public UnityAction OnClickOpenFolder;
 
 
     public void UpdateButtons()
