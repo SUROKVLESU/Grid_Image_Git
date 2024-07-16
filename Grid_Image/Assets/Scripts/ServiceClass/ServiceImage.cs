@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class ServiceImage 
@@ -25,5 +23,35 @@ public static class ServiceImage
         sprite = Sprite.Create
             (texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1000f);
         return sprite;
+    }
+    public static void PrintNewTexture(Texture2D texture,CubicKangeFilled cubic,Color color)
+    {
+        for (int i = (int)((cubic.RightY/100f) * texture.width); i <= (int)((cubic.LeftY/100f) * texture.width); i++)
+        {
+            for (int j = (int)((cubic.LeftX / 100f) * texture.height); j <= (int)((cubic.RightX / 100f) * texture.height); j++)
+            {
+                texture.SetPixel(i, j, texture.GetPixel(i, j)+color);
+            }
+        }
+    }
+    public static void PrintNewTexture(Texture2D texture, CubicKangeFilled cubic)
+    {
+        Color color = new Color(0f,0f,0f,0f);
+        for (int i = (int)((cubic.RightY / 100f) * texture.width); i <= (int)((cubic.LeftY / 100f) * texture.width); i++)
+        {
+            for (int j = (int)((cubic.LeftX / 100f) * texture.height); j <= (int)((cubic.RightX / 100f) * texture.height); j++)
+            {
+                texture.SetPixel(i, j, texture.GetPixel(i, j) + color);
+            }
+        }
+    }
+    public static void PrintAllTexture(Texture2D texture)
+    {
+        CubicKangeFilled[] cubics = ServiceCubic.CreateArrayCubic();
+        for (int i = 0; i < cubics.Length; i++)
+        {
+            PrintNewTexture
+                (texture, cubics[i], new Color(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0));
+        }
     }
 }

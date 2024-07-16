@@ -24,20 +24,9 @@ public class TestButton : MonoBehaviour
     }
     private void OnClick22()
     {
-        IsBool = false;
-        Debug.Log("Start");
         Texture2D newTexture2D = ServiceImage.CreateTexture2D(TestImage.sprite.texture);
-        Color MyColor;
-        IsBool = false;
-        for (int i = 0; i < newTexture2D.width; i++)
-        {
-            for (int j = 0; j < newTexture2D.height; j++)
-            {
-                MyColor = newTexture2D.GetPixel(i, j);
-                newTexture2D.SetPixel(i, j, new Color
-                        (MyColor.r + 0.2f, MyColor.g - 0.2f, MyColor.b + 0.4f, MyColor.a));//r g b a
-            }
-        }
+        ServiceImage.PrintAllTexture(newTexture2D);
         TestImage.overrideSprite = ServiceImage.CreateSprite(newTexture2D);
+        Debug.Log("Finisch");
     }
 }
