@@ -41,12 +41,14 @@ public class WWWTest : MonoBehaviour
                 }
             }
         }
-        Sprite sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), 1000f);
+        Sprite sprite = Sprite.Create
+            (texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), 1000f);
         image.sprite = sprite;
         string jpgFile = "C:\\Test\\22.png";
         var bytes = sprite.texture.EncodeToJPG();
         ImageConversion.LoadImage(texture2D, bytes);
-        sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), 1000f);
+        sprite = Sprite.Create
+            (texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), 1000f);
         image.sprite = sprite;
         System.IO.File.WriteAllBytes(jpgFile, bytes);
 
