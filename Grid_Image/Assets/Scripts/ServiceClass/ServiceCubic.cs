@@ -12,6 +12,8 @@ public static class ServiceCubic
         int index = 0;
         CubicKangeFilled SelectedCubic = 
             new CubicKangeFilled(new Vector2Int(0,Random.Range(15,36)),new Vector2Int(Random.Range(15, 36),0));
+        cubicKangeFilleds[index] = SelectedCubic;
+        index++;
 
         Vector2Int upperLeft = new Vector2Int(SelectedCubic.LeftX, SelectedCubic.LeftY);
         Vector2Int upperRight = new Vector2Int(SelectedCubic.RightX, SelectedCubic.LeftY);
@@ -55,7 +57,7 @@ public static class ServiceCubic
                     cubicKangeFilleds[index] = new CubicKangeFilled(new Vector2Int(newLeft.x,100), newRight);
                     index++;
                     cubicKangeFilleds[index] =
-                    new CubicKangeFilled(new Vector2Int(newRight.x, newLeft.y), upperRight);
+                    new CubicKangeFilled(new Vector2Int(newRight.x, 100), upperRight);//////
                     index++;
                     upperLeft = new Vector2Int(upperLeft.x, 1000);
                     upperRight = new Vector2Int(upperRight.x, 1000);

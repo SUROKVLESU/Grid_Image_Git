@@ -7,10 +7,14 @@ public class Controller : MonoBehaviour
     private File_Controller controllerFile_Controller;
     [SerializeField]
     private Image ImageResult;
-    [SerializeField]//
+    [SerializeField]
     private Texture2D SelectedTexture;
+    [SerializeField]
+    private Sprite GridSprite;
     private float HeightImage;
     private float WidthImage;
+    [SerializeField]
+    private Button TestButton;
 
 
     private void Awake()
@@ -18,6 +22,7 @@ public class Controller : MonoBehaviour
         //controllerFile_Controller.OnClickSaveButtonFile += () => { OnClickSaveButton(); };
         HeightImage = ImageResult.rectTransform.rect.height;
         WidthImage = ImageResult.rectTransform.rect.width;
+        TestButton.onClick.AddListener(() => { OnClickTest(); });
         OnClickSaveButton();
     }
     private void OnClickSaveButton()
@@ -42,6 +47,30 @@ public class Controller : MonoBehaviour
         var bytes = sprite.texture.EncodeToJPG();
         ImageConversion.LoadImage(tex, bytes);
         return tex;
+    }
+    private void OnClickTest()
+    {
+        SelectedTexture = ServiceImage.CreateTexture2D(SelectedTexture);
+        CubicKangeFilled[] cubics = ServiceCubic.CreateArrayCubic();
+        ServiceImage.PrintAllTexture(SelectedTexture, cubics);
+        for (int i = 0;i < cubics.Length;i++)
+        {
+            new BoxCollider2DObject(ImageResult, cubics[i],i,GridSprite);
+        }
+        /*ServiceImage.PrintNewTexture(SelectedTexture,
+            new CubicKangeFilled(new Vector2Int(25, 75), new Vector2Int(75, 25)),
+            new Color(0.2f, -0.2f, 0.4f));
+        new BoxCollider2DObject
+            (ImageResult, new CubicKangeFilled(new Vector2Int(25, 75), new Vector2Int(75, 25)), 0, GridSprite);
+
+        ServiceImage.PrintNewTexture(SelectedTexture,
+            new CubicKangeFilled(new Vector2Int(0, 25), new Vector2Int(25, 0)),
+            new Color(0.2f, 0.2f, -0.4f));
+        new BoxCollider2DObject
+            (ImageResult, new CubicKangeFilled(new Vector2Int(0, 25), new Vector2Int(25, 0)), 0, GridSprite);*/
+
+        ImageResult.overrideSprite = ServiceImage.CreateSprite(SelectedTexture);
+        Debug.Log("Finisch");
     }
     private void ScaleImage(Image source)
     {
