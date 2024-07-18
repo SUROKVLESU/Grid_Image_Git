@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
@@ -14,20 +16,62 @@ public class Controller : MonoBehaviour
     private float HeightImage;
     private float WidthImage;
     [SerializeField]
-    private Button TestButton;
+    private Button GridButton;
+    [SerializeField]
+    private Button PrintButton;
+    [SerializeField] 
+    private Button SaveButton;
+    [SerializeField]
+    private GameObject[] GameObjectRGB;
+    [SerializeField]
+    private GameObject Interface;
+
+    private static CubicKangeFilled[] CubicKangeFilleds;
+    private static Color[] CubicColor;
+
+    private static RGBValue[] RGBValue;
+    private static int CubicIndex;
+    private static Image ImageCubic;
 
 
     private void Awake()
     {
-        //controllerFile_Controller.OnClickSaveButtonFile += () => { OnClickSaveButton(); };
+        controllerFile_Controller.OnClickSaveButtonFile += () => { OnClickSaveButton(); };//===================
+        SetRGB();
         HeightImage = ImageResult.rectTransform.rect.height;
         WidthImage = ImageResult.rectTransform.rect.width;
-        TestButton.onClick.AddListener(() => { OnClickTest(); });
-        OnClickSaveButton();
+        PrintButton.enabled = false;
+        PrintButton.transform.GetComponent<Image>().color = Color.red;
+        GridButton.onClick.AddListener(() => 
+        {
+            SetActiveRGB(false);
+            DestroyGrid();
+            PrintButton.enabled = true;
+            PrintButton.transform.GetComponent<Image>().color = Color.white;
+            OnClickGridButton();
+        } );
+        PrintButton.onClick.AddListener(() => 
+        {
+            SetActiveRGB(false);
+            DestroyGrid();
+            SelectedTexture = ServiceImage.CreateTexture2D(SelectedTexture);
+            ServiceImage.PrintAllTexture(SelectedTexture, CubicKangeFilleds, CubicColor);
+            ImageResult.overrideSprite = ServiceImage.CreateSprite(SelectedTexture);
+        });
+        SaveButton.onClick.AddListener(() => 
+        {
+            OnClickSave();
+        });
+        //OnClickSaveButton();//==============================
+    }
+    private void Start()
+    {
+        Interface.SetActive(false);//============================
     }
     private void OnClickSaveButton()
     {
-        //SelectedTexture = controllerFile_Controller.GetTexture();
+        Interface.SetActive(true);
+        SelectedTexture = controllerFile_Controller.GetTexture();//==============================
         Sprite sprite = Sprite.Create
             (SelectedTexture, new Rect(0, 0, SelectedTexture.width, SelectedTexture.height), new Vector2(0.5f, 0.5f), 100f);
         ImageResult.overrideSprite = sprite;
@@ -48,34 +92,14 @@ public class Controller : MonoBehaviour
         ImageConversion.LoadImage(tex, bytes);
         return tex;
     }
-    private void OnClickTest()
+    private void OnClickGridButton()
     {
-        SelectedTexture = ServiceImage.CreateTexture2D(SelectedTexture);
-        CubicKangeFilled[] cubics = ServiceCubic.CreateArrayCubic();
-        ServiceImage.PrintAllTexture(SelectedTexture, cubics);
-        for (int i = 0;i < cubics.Length;i++)
+        CubicKangeFilleds = ServiceCubic.CreateArrayCubic();
+        CubicColor = new Color[CubicKangeFilleds.Length];
+        for (int i = 0;i < CubicKangeFilleds.Length;i++)
         {
-            new BoxCollider2DObject(ImageResult, cubics[i],i,GridSprite);
+            new BoxCollider2DObject(ImageResult, CubicKangeFilleds[i],i,GridSprite);
         }
-        /*ServiceImage.PrintNewTexture(SelectedTexture,
-            new CubicKangeFilled(new Vector2Int(25, 75), new Vector2Int(75, 25)),
-            new Color(0.2f, -0.2f, 0.4f));
-        new BoxCollider2DObject
-            (ImageResult, new CubicKangeFilled(new Vector2Int(25, 75), new Vector2Int(75, 25)), 0, GridSprite);
-
-        ServiceImage.PrintNewTexture(SelectedTexture,
-            new CubicKangeFilled(new Vector2Int(0, 25), new Vector2Int(25, 0)),
-            new Color(0.2f, 0.2f, -0.4f));
-        new BoxCollider2DObject
-            (ImageResult, new CubicKangeFilled(new Vector2Int(0, 25), new Vector2Int(25, 0)), 0, GridSprite);*/
-
-        ImageResult.overrideSprite = ServiceImage.CreateSprite(SelectedTexture);
-        Debug.Log("Finisch");
-    }
-    private void ScaleImage(Image source)
-    {
-        source.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, SelectedTexture.width);
-        source.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, SelectedTexture.height);
     }
     private void ScaleImage(float width, float height)
     {
@@ -124,4 +148,84 @@ public class Controller : MonoBehaviour
             }
         }
     }
+    private void OnClickSave()
+    {
+        var bytes = SelectedTexture.EncodeToJPG();
+        System.IO.File.WriteAllBytes
+            (File_Controller.PluginFolder.CallStatic<string>("GetRootDirectory") +"/Download/"
+                + Random.Range(0, int.MaxValue) + ".png", bytes);
+    }
+    public static void SetActiveRGB(bool active) 
+    {
+        for (int i = 0;i< RGBValue.Length;i++)
+        {
+            RGBValue[i].transform.parent.gameObject.SetActive(active);
+        }
+    }
+    private void DestroyGrid()
+    {
+        Transform Object = ImageResult.rectTransform.GetChild(0);
+        for (int i = 0; i < ImageResult.rectTransform.GetChild(0).childCount; i++)
+        {
+            Destroy(Object.GetChild(i).gameObject);
+        }
+    }
+    private void SetRGB()
+    {
+        RGBValue = new RGBValue[GameObjectRGB.Length];
+        for (int i = 0; i < GameObjectRGB.Length; i++)
+        {
+            RGBValue[i] = GameObjectRGB[i].transform.GetChild(0).GetComponent<RGBValue>();
+        }
+    }
+    public static void SetSelectedBoxCollider(int index)
+    {
+        CubicIndex = index;
+    }
+    public static void SetImageCubic(Image image)
+    {
+        ImageCubic = image;
+        for (int i = 0; i < RGBValue.Length; i++)
+        {
+            if (CubicColor[CubicIndex] == null)
+            {
+                switch (i)
+                {
+                    case 0:
+                        RGBValue[i].Value = image.color.r;
+                        break;
+                    case 1:
+                        RGBValue[i].Value = image.color.g;
+                        break;
+                    case 2:
+                        RGBValue[i].Value = image.color.b;
+                        break;
+                }
+                RGBValue[i].SetText();
+            }
+            else
+            {
+                switch(i)
+                {
+                    case 0:
+                        RGBValue[i].Value = CubicColor[CubicIndex].r;
+                        break;
+                    case 1:
+                        RGBValue[i].Value = CubicColor[CubicIndex].g;
+                        break;
+                    case 2:
+                        RGBValue[i].Value = CubicColor[CubicIndex].b;
+                        break;
+                }
+                RGBValue[i].SetText();
+            }
+
+        }
+    }
+    public static void ShiftRGB()
+    {
+        ImageCubic.color = new Color(RGBValue[0].Value, RGBValue[1].Value, RGBValue[2].Value, ImageCubic.color.a);
+        CubicColor[CubicIndex] = new Color(RGBValue[0].Value, RGBValue[1].Value, RGBValue[2].Value, 0);
+    }
+
 }

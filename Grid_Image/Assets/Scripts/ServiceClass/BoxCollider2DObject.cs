@@ -6,7 +6,7 @@ public class BoxCollider2DObject : MonoBehaviour
 {
     public int index;
     public GameObject GameObject;
-    private BoxCollider2D BoxCollider;
+    //private BoxCollider2D BoxCollider;
     public BoxCollider2DObject(Image ImageObject,CubicKangeFilled cubic,int index,Sprite sprite)
     {
         if (ImageObject.rectTransform.localRotation.z >0.1)
@@ -24,11 +24,9 @@ public class BoxCollider2DObject : MonoBehaviour
             RectTransform rectTransform = GameObject.AddComponent<RectTransform>(); ;
             rectTransform.anchorMin = new Vector2(0, 0);
             rectTransform.anchorMax = new Vector2(0, 0);
-            //rectTransform.rotation = ImageObject.transform.rotation;
             rectTransform.parent = GridObject.transform;
             rectTransform.localScale = new Vector3(1, 1, 1);
-            //rectTransform.localRotation = Quaternion.Euler(0, 0, 0);
-            BoxCollider = GameObject.AddComponent<BoxCollider2D>();
+            BoxCollider2D BoxCollider = GameObject.AddComponent<BoxCollider2D>();
             BoxCollider.isTrigger = true;
             BoxCollider.size =
                 new Vector2(width * ((cubic.RightX - cubic.LeftX) / 100f),
@@ -44,10 +42,15 @@ public class BoxCollider2DObject : MonoBehaviour
                         , rectTransform.localPosition.z);
             Image BoxImage = GameObject.AddComponent<Image>();
             BoxImage.overrideSprite = sprite;
+            BoxImage.color = new Color(1, 1, 1, 0.5f);
             BoxImage.rectTransform.SetSizeWithCurrentAnchors
                         (RectTransform.Axis.Vertical, BoxCollider.size.y);
             BoxImage.rectTransform.SetSizeWithCurrentAnchors
                 (RectTransform.Axis.Horizontal, BoxCollider.size.x);
+            ButtonBoxCollider buttonBoxCollider = GameObject.AddComponent<ButtonBoxCollider>();
+
+            buttonBoxCollider.index = index;
+            buttonBoxCollider.image = BoxImage;
         }
         else
         {
@@ -64,11 +67,9 @@ public class BoxCollider2DObject : MonoBehaviour
             RectTransform rectTransform = GameObject.AddComponent<RectTransform>(); ;
             rectTransform.anchorMin = new Vector2(0, 0);
             rectTransform.anchorMax = new Vector2(0, 0);
-            //rectTransform.rotation = ImageObject.transform.rotation;
             rectTransform.parent = GridObject.transform;
             rectTransform.localScale = new Vector3(1, 1, 1);
-            //rectTransform.localRotation = Quaternion.Euler(0, 0, 0);
-            BoxCollider = GameObject.AddComponent<BoxCollider2D>();
+            BoxCollider2D BoxCollider = GameObject.AddComponent<BoxCollider2D>();
             BoxCollider.isTrigger = true;
             BoxCollider.size =
                 new Vector2(width * ((cubic.RightX - cubic.LeftX) / 100f),
@@ -84,11 +85,16 @@ public class BoxCollider2DObject : MonoBehaviour
                         , rectTransform.localPosition.z);
             Image BoxImage = GameObject.AddComponent<Image>();
             BoxImage.overrideSprite = sprite;
+            BoxImage.color = new Color(1, 1, 1,0.5f);
             BoxImage.rectTransform.SetSizeWithCurrentAnchors
                         (RectTransform.Axis.Vertical, BoxCollider.size.y);
             BoxImage.rectTransform.SetSizeWithCurrentAnchors
                 (RectTransform.Axis.Horizontal, BoxCollider.size.x);
             GridRectTransform.localRotation = Quaternion.Euler(180, 0, -90);
+            ButtonBoxCollider buttonBoxCollider = GameObject.AddComponent<ButtonBoxCollider>();
+
+            buttonBoxCollider.index = index;
+            buttonBoxCollider.image = BoxImage;
         }
     }
 }

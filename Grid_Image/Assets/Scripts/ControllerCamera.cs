@@ -10,6 +10,13 @@ public class ControllerCamera : MonoBehaviour
     private Camera _camera;
     private Vector3 _position;
 
+    private void Awake()
+    {
+        RectTransform rectTransform = transform.parent.GetComponent<RectTransform>();
+        GetComponent<BoxCollider2D>().size = rectTransform.sizeDelta;
+        GetComponent<RectTransform>().position = new Vector3(0, 0, rectTransform.position.z);
+
+    }
     void OnMouseDrag()
     {
         _position = _camera.transform.position;

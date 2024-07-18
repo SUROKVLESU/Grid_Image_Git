@@ -47,12 +47,18 @@ public static class ServiceImage
             }
         }
     }
-    public static void PrintAllTexture(Texture2D texture , CubicKangeFilled[] cubics)
+    public static void PrintAllTexture(Texture2D texture , CubicKangeFilled[] cubics, Color[] colors)
     {
         for (int i = 0; i < cubics.Length; i++)
         {
-            PrintNewTexture
-                (texture, cubics[i], new Color(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0));
+            if (colors[i] == null)
+            {
+                PrintNewTexture(texture, cubics[i]);
+            }
+            else
+            {
+                PrintNewTexture(texture, cubics[i], colors[i]);
+            }
         }
 
     }
