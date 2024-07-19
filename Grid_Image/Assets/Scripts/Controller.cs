@@ -32,6 +32,8 @@ public class Controller : MonoBehaviour
     private GameObject[] GameObjectRGB;
     [SerializeField]
     private GameObject Interface;
+    [SerializeField]
+    private Image ColorNewOdj;
 
     private static CubicKangeFilled[] CubicKangeFilleds;
     private static Color[] CubicColor;
@@ -39,16 +41,18 @@ public class Controller : MonoBehaviour
     private static RGBValue[] RGBValue;
     private static int CubicIndex;
     private static Image ImageCubic;
+    private static Image ColorCubicNew;
 
 
     private void Awake()
     {
         controllerFile_Controller.OnClickSaveButtonFile += () => { OnClickSaveButton(); };//===================
         SetRGB();
+        SetColorCubicNew();
         HeightImage = ImageResult.rectTransform.rect.height;
         WidthImage = ImageResult.rectTransform.rect.width;
         PrintButton.enabled = false;
-        PrintButton.transform.GetComponent<Image>().color = Color.red;
+        //PrintButton.transform.GetComponent<Image>().color = Color.red;
         FolderButton.onClick.AddListener(() =>
         {
             SetActiveGridButton(false);
@@ -195,6 +199,7 @@ public class Controller : MonoBehaviour
         {
             RGBValue[i].gameObject.SetActive(active);
         }
+        ColorCubicNew.gameObject.SetActive(active);
     }
     private void DestroyGrid()
     {
@@ -203,6 +208,10 @@ public class Controller : MonoBehaviour
         {
             Destroy(Object.GetChild(i).gameObject);
         }
+    }
+    private void SetColorCubicNew()
+    {
+        ColorCubicNew = ColorNewOdj;
     }
     private void SetRGB()
     {
@@ -255,11 +264,13 @@ public class Controller : MonoBehaviour
             }
 
         }
+        ColorCubicNew.color = new Color(RGBValue[0].Value, RGBValue[1].Value, RGBValue[2].Value, 1);
     }
     public static void ShiftRGB()
     {
         ImageCubic.color = new Color(RGBValue[0].Value, RGBValue[1].Value, RGBValue[2].Value, ImageCubic.color.a);
         CubicColor[CubicIndex] = new Color(RGBValue[0].Value, RGBValue[1].Value, RGBValue[2].Value, 0);
+        ColorCubicNew.color = new Color(RGBValue[0].Value, RGBValue[1].Value, RGBValue[2].Value, 1);
     }
 
 }

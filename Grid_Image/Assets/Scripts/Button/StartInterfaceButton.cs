@@ -21,11 +21,13 @@ internal class StartInterfaceButton : MonoBehaviour
     }
     private void OnClick()
     {
-        if (Plugin.PluginFolder.CallStatic<bool>("IsAccessToMemory"))
+        transform.parent.gameObject.SetActive(false);
+        File_ControllerObj.SetActive(true);
+        /*if (Plugin.PluginFolder.CallStatic<bool>("IsAccessToMemory"))
         {
             transform.parent.gameObject.SetActive(false);
             File_ControllerObj.SetActive(true);
-        }
+        }*/
     }
 }
 
