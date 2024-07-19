@@ -131,7 +131,7 @@ internal class FileButtonController : MonoBehaviour
                 }
                 ButtonsFile[i].gameObject.transform.parent.gameObject.SetActive(true);
                 TextFile[i].text =
-                    File_Controller.PluginFolder.CallStatic<string>
+                    Plugin.PluginFolder.CallStatic<string>
                     ("GetFileName", SelectedGroupFiles[IndexNextFile + i]);
                 ImagesFile[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, HeightImage);
                 ImagesFile[i].rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, WidthImage);

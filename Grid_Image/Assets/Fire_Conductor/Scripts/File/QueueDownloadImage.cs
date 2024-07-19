@@ -17,14 +17,14 @@ internal class QueueDownloadImage : MonoBehaviour
                 Arr[i] = ArrDownloadImage[i];
             }
             Arr[ArrDownloadImage.Length] = new Action(() => {
-                File_Controller.PluginFolder.CallStatic("Print", "AddQueue(IEnumerator Coroutine):"+ Arr.Length.ToString());
+                Plugin.PluginFolder.CallStatic("Print", "AddQueue(IEnumerator Coroutine):"+ Arr.Length.ToString());
                 StartCoroutine((Coroutine)); });
             ArrDownloadImage = Arr;
         }
         else
         {
             ArrDownloadImage = new Action[] { () => {
-                File_Controller.PluginFolder.CallStatic("Print", "AddQueue(IEnumerator Coroutine):"+ "First");
+                Plugin.PluginFolder.CallStatic("Print", "AddQueue(IEnumerator Coroutine):"+ "First");
                 StartCoroutine((Coroutine)); } };
         }
     }

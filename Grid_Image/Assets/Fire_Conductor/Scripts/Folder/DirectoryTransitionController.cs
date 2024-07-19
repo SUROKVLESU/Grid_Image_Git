@@ -9,7 +9,7 @@ public class DirectoryTransitionController
     public DirectoryTransitionController(string drives)//нужен для создания нулевой папки
     {
         string[] directoryInfos =
-            File_Controller.PluginFolder.CallStatic<string[]>("GetDirectories", drives);
+            Plugin.PluginFolder.CallStatic<string[]>("GetDirectories", drives);
         Folders = new Folder[1] {Folder.NullFolder(directoryInfos) };
         SelectedFolder = Folders[0];
         ArrayTransitionNumbersFolder = new ArrayTransitionNumbersFolder();

@@ -11,16 +11,23 @@ public class Controller : MonoBehaviour
     private Image ImageResult;
     [SerializeField]
     private Texture2D SelectedTexture;
+    private Texture2D NewTexture;
     [SerializeField]
     private Sprite GridSprite;
     private float HeightImage;
     private float WidthImage;
     [SerializeField]
     private Button GridButton;
+    [SerializeField] 
+    private Button NewGridButton;
+    [SerializeField] 
+    private Button OldGridButton;
     [SerializeField]
     private Button PrintButton;
     [SerializeField] 
     private Button SaveButton;
+    [SerializeField] 
+    private Button FolderButton;
     [SerializeField]
     private GameObject[] GameObjectRGB;
     [SerializeField]
@@ -42,21 +49,41 @@ public class Controller : MonoBehaviour
         WidthImage = ImageResult.rectTransform.rect.width;
         PrintButton.enabled = false;
         PrintButton.transform.GetComponent<Image>().color = Color.red;
-        GridButton.onClick.AddListener(() => 
+        FolderButton.onClick.AddListener(() =>
+        {
+            SetActiveGridButton(false);
+            Interface.gameObject.SetActive(false);
+            controllerFile_Controller.gameObject.SetActive(true);
+        });
+        OldGridButton.onClick.AddListener(() =>
+        {
+            ImageResult.rectTransform.GetChild(0).gameObject.SetActive(true);
+            NewTexture = SelectedTexture;
+            Sprite sprite = Sprite.Create
+            (NewTexture, new Rect(0, 0, NewTexture.width, NewTexture.height), new Vector2(0.5f, 0.5f), 100f);
+            ImageResult.overrideSprite = sprite;
+            ScaleImage(NewTexture.width, NewTexture.height);
+        });
+        NewGridButton.onClick.AddListener(() =>
         {
             SetActiveRGB(false);
             DestroyGrid();
             PrintButton.enabled = true;
             PrintButton.transform.GetComponent<Image>().color = Color.white;
             OnClickGridButton();
+        });
+        GridButton.onClick.AddListener(() => 
+        {
+            SetActiveGridButton(!NewGridButton.gameObject.activeSelf);
         } );
         PrintButton.onClick.AddListener(() => 
         {
             SetActiveRGB(false);
-            DestroyGrid();
-            SelectedTexture = ServiceImage.CreateTexture2D(SelectedTexture);
-            ServiceImage.PrintAllTexture(SelectedTexture, CubicKangeFilleds, CubicColor);
-            ImageResult.overrideSprite = ServiceImage.CreateSprite(SelectedTexture);
+            ImageResult.rectTransform.GetChild(0).gameObject.SetActive(false);
+            //DestroyGrid();
+            NewTexture = ServiceImage.CreateTexture2D(SelectedTexture);
+            ServiceImage.PrintAllTexture(NewTexture, CubicKangeFilleds, CubicColor);
+            ImageResult.overrideSprite = ServiceImage.CreateSprite(NewTexture);
         });
         SaveButton.onClick.AddListener(() => 
         {
@@ -70,12 +97,14 @@ public class Controller : MonoBehaviour
     }
     private void OnClickSaveButton()
     {
+        DestroyGrid();
         Interface.SetActive(true);
         SelectedTexture = controllerFile_Controller.GetTexture();//==============================
+        NewTexture = SelectedTexture;
         Sprite sprite = Sprite.Create
-            (SelectedTexture, new Rect(0, 0, SelectedTexture.width, SelectedTexture.height), new Vector2(0.5f, 0.5f), 100f);
+            (NewTexture, new Rect(0, 0, NewTexture.width, NewTexture.height), new Vector2(0.5f, 0.5f), 100f);
         ImageResult.overrideSprite = sprite;
-        ScaleImage(SelectedTexture.width, SelectedTexture.height);
+        ScaleImage(NewTexture.width, NewTexture.height);
     }
     private Texture2D CopyTexture(Texture2D source)
     {
@@ -150,16 +179,21 @@ public class Controller : MonoBehaviour
     }
     private void OnClickSave()
     {
-        var bytes = SelectedTexture.EncodeToJPG();
+        var bytes = NewTexture.EncodeToJPG();
         System.IO.File.WriteAllBytes
-            (File_Controller.PluginFolder.CallStatic<string>("GetRootDirectory") +"/Download/"
+            (Plugin.PluginFolder.CallStatic<string>("GetRootDirectory") +"/Download/"
                 + Random.Range(0, int.MaxValue) + ".png", bytes);
+    }
+    public void SetActiveGridButton(bool active)
+    {
+        NewGridButton.gameObject.SetActive (active);
+        OldGridButton.gameObject.SetActive(active);
     }
     public static void SetActiveRGB(bool active) 
     {
         for (int i = 0;i< RGBValue.Length;i++)
         {
-            RGBValue[i].transform.parent.gameObject.SetActive(active);
+            RGBValue[i].gameObject.SetActive(active);
         }
     }
     private void DestroyGrid()
@@ -175,7 +209,7 @@ public class Controller : MonoBehaviour
         RGBValue = new RGBValue[GameObjectRGB.Length];
         for (int i = 0; i < GameObjectRGB.Length; i++)
         {
-            RGBValue[i] = GameObjectRGB[i].transform.GetChild(0).GetComponent<RGBValue>();
+            RGBValue[i] = GameObjectRGB[i].GetComponent<RGBValue>();
         }
     }
     public static void SetSelectedBoxCollider(int index)

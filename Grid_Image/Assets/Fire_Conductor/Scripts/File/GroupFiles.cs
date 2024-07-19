@@ -26,7 +26,7 @@ public class GroupFiles : MonoBehaviour
         if(Directory.GetParentFolder.GetDirectoryInfo!=null)
         {
             Files = Sort
-            (File_Controller.PluginFolder.CallStatic<string[]>
+            (Plugin.PluginFolder.CallStatic<string[]>
                 ("GetFiles", Directory.GetParentFolder.GetDirectoryInfo));
             CountFile = Files.Length;
         }

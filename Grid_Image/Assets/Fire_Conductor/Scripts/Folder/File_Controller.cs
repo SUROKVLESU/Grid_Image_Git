@@ -8,16 +8,14 @@ public class File_Controller : MonoBehaviour
     private FolderButtonController FolderButtonController;
     private FileButtonController FileButtonController;
     private SaveImageButton SaveImageButton;
-    public static AndroidJavaClass PluginFolder;
     //не забудь про очистку ресурсов
 
     public UnityAction OnClickSaveButtonFile;
 
     public void Awake()
     {
-        PluginFolder = new AndroidJavaClass("com.example.mylibrarytest.PluginFolder");
         DirectoryTransitionController = 
-            new DirectoryTransitionController(PluginFolder.CallStatic<string>("GetRootDirectory"));
+            new DirectoryTransitionController(Plugin.PluginFolder.CallStatic<string>("GetRootDirectory"));
         FileTransitionController = new FileTransitionController();
     }
     public void Start()

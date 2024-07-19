@@ -22,7 +22,7 @@ public class ArrayFolders
     public ArrayFolders(FolderPointer folderPointer)
     {
         string[] ArrayGetDirectories =
-            File_Controller.PluginFolder.CallStatic<string[]>("GetDirectories", folderPointer.GetDirectoryInfo);
+            Plugin.PluginFolder.CallStatic<string[]>("GetDirectories", folderPointer.GetDirectoryInfo);
         ArrayFoldersDirectory = new FolderPointer[ArrayGetDirectories.Length];
         for (int i = 0; i < ArrayGetDirectories.Length; i++)
         {

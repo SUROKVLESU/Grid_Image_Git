@@ -77,7 +77,7 @@ public class FolderButtonController : MonoBehaviour
                 }
                 ButtonsFolder[i].gameObject.transform.parent.gameObject.SetActive(true);
                 ButtonsText[i].text =
-                    File_Controller.PluginFolder.CallStatic<string>("GetDirectoryName", SelectedFolder[IndexNextFolder + i].GetDirectoryInfo);
+                    Plugin.PluginFolder.CallStatic<string>("GetDirectoryName", SelectedFolder[IndexNextFolder + i].GetDirectoryInfo);
             }
             else
             {
