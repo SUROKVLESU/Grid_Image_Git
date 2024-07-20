@@ -46,7 +46,7 @@ public class Controller : MonoBehaviour
 
     private void Awake()
     {
-        controllerFile_Controller.OnClickSaveButtonFile += () => { OnClickSaveButton(); };//===================
+        //controllerFile_Controller.OnClickSaveButtonFile += () => { OnClickSaveButton(); };//===================
         SetRGB();
         SetColorCubicNew();
         HeightImage = ImageResult.rectTransform.rect.height;
@@ -93,17 +93,17 @@ public class Controller : MonoBehaviour
         {
             OnClickSave();
         });
-        //OnClickSaveButton();//==============================
+        OnClickSaveButton();//==============================
     }
     private void Start()
     {
-        Interface.SetActive(false);//============================
+        //Interface.SetActive(false);//============================
     }
     private void OnClickSaveButton()
     {
         DestroyGrid();
         Interface.SetActive(true);
-        SelectedTexture = controllerFile_Controller.GetTexture();//==============================
+        //SelectedTexture = controllerFile_Controller.GetTexture();//==============================
         NewTexture = SelectedTexture;
         Sprite sprite = Sprite.Create
             (NewTexture, new Rect(0, 0, NewTexture.width, NewTexture.height), new Vector2(0.5f, 0.5f), 100f);
@@ -127,7 +127,8 @@ public class Controller : MonoBehaviour
     }
     private void OnClickGridButton()
     {
-        CubicKangeFilleds = ServiceCubic.CreateArrayCubic();
+        //CubicKangeFilleds = ServiceCubic.CreateArrayCubicV1();//Замена
+        CubicKangeFilleds = ServiceCubic.CreateArrayCubicV2();
         CubicColor = new Color[CubicKangeFilleds.Length];
         for (int i = 0;i < CubicKangeFilleds.Length;i++)
         {
