@@ -26,8 +26,8 @@ public class ControllerCamera : MonoBehaviour
         point = _position-point;
         _camera.transform.position -=
             new Vector3(point.x*Time.deltaTime, point.y * Time.deltaTime,0);
-        if(_camera.transform.position.x<-20|| _camera.transform.position.x>20||
-            _camera.transform.position.y<-10|| _camera.transform.position.y>10)
+        if(_camera.transform.position.x<-25|| _camera.transform.position.x>25||
+            _camera.transform.position.y<-15|| _camera.transform.position.y>15)
         {
             _camera.transform.position=_position;
         }

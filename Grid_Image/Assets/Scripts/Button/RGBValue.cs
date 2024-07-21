@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 public class RGBValue : MonoBehaviour 
 {
     public float Value;
-    private const float CONST_multiplier = 0.001f;
+    private const float CONST_multiplier = 0.001f/3;
     private Text Text;
     private RectTransform BoxCollider2D;
     private RectTransform RectTransform;

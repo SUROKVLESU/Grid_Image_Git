@@ -22,8 +22,8 @@ public class ScaleImage : MonoBehaviour
     {
         if (Condition == 5) Condition = 0;
         else Condition++;
-        SceneScaleImage.rectTransform.localScale = new Vector3(0.5f + 0.1f * Condition, 0.5f + 0.1f * Condition, 1);
-        int IntText = 0 + 20*Condition;
+        SceneScaleImage.rectTransform.localScale = new Vector3(0.5f + 0.2f * Condition, 0.5f + 0.2f * Condition, 1);
+        int IntText = 0 + 30*Condition;
         Text.text = IntText.ToString()+"%";
         if(Condition == 0)
         {

@@ -103,8 +103,8 @@ public static class ServiceCubic
     }
     public static CubicKangeFilled[] CreateArrayCubicV2()
     {
-        int minSize = 15;
-        int maxSize = 36;
+        int minSize = 5;
+        int maxSize = 16;
         CubicKangeFilled[] cubicKangeFilleds = new CubicKangeFilled[300];
         int index = 0;
         CubicKangeFilled SelectedCubic =
@@ -115,12 +115,14 @@ public static class ServiceCubic
         Vector2Int T2 = new Vector2Int(SelectedCubic.RightX, SelectedCubic.LeftY);
         Vector2Int T3= new Vector2Int(SelectedCubic.RightX, SelectedCubic.RightY);
         Vector2Int[] result;
-        while (T3.x!=100&&T3.y!=100)
+        bool isEnd = false;
+        while (!isEnd)
         {
             result = NewCubicKangeFilled(T1, T2, T3);
             T1=result[0];
             T2=result[1];
             T3=result[2];
+            isEnd = T2.x == 100 && T2.y == 100;
         }
 
         CubicKangeFilled[] arr = new CubicKangeFilled[index];
@@ -150,6 +152,8 @@ public static class ServiceCubic
                     T2 = new Vector2Int(100, T2.y);
                 }
                 T3 = new Vector2Int(T2.x,T3.y);
+                cubicKangeFilleds[index] = new CubicKangeFilled(T1, T3);
+                index++;
             }
             if(T3.x == 100)
             {
@@ -164,138 +168,67 @@ public static class ServiceCubic
                     T1 = new Vector2Int(T1.x, 100);
                 }
                 T2 = new Vector2Int(T3.x, T1.y);
-
+                cubicKangeFilleds[index] = new CubicKangeFilled(T1, T3);
+                index++;
             }
 
             NT1 = new Vector2Int(T1.x, T1.y + Random.Range(minSize, maxSize));
             Vector2Int PT2 = NT1;
             Vector2Int PT1 = NT1;
-            if (NT1.y < 100)
+            if (NT1.y>T1.y)
             {
-                if (100 - NT1.y > minSize)
+                if (NT1.y > 100)
                 {
-                    do
-                    {
-                        PT2 = new Vector2Int(PT2.x + Random.Range(minSize, maxSize), NT1.y);
-                        if (PT2.x - T2.x < minSize)
-                        {
-                            PT2 = new Vector2Int(PT2.x + minSize, PT2.y);
-                        }
-                        if (100 - PT2.x < minSize)
-                        {
-                            PT2 = new Vector2Int(T2.x + (100 - T2.x) / 2, PT2.y);
-                        }
-                        if (PT2.x <= 100)
-                        {
-                            cubicKangeFilleds[index] = new CubicKangeFilled
-                                (PT1, new Vector2Int(PT2.x, PT1.y));
-                            PT1 = new Vector2Int(cubicKangeFilleds[index].LeftX, cubicKangeFilleds[index].LeftY);
-                            PT2 = new Vector2Int(cubicKangeFilleds[index].RightX, cubicKangeFilleds[index].LeftY);
-                            index++;
-                        }
-                        else
-                        {
-                            PT2 = new Vector2Int(100, PT2.y);
-                            cubicKangeFilleds[index] = new CubicKangeFilled
-                                (PT1, new Vector2Int(PT2.x, PT1.y));
-                            PT1 = new Vector2Int(cubicKangeFilleds[index].LeftX, cubicKangeFilleds[index].LeftY);
-                            PT2 = new Vector2Int(cubicKangeFilleds[index].RightX, cubicKangeFilleds[index].LeftY);
-                            index++;
-                        }
-                    }
-                    while (PT2.x < T2.x);
+                    NT1 = new Vector2Int(NT1.x, 100);
+                    PT2 = NT1;
+                    PT1 = NT1;
                 }
-                else
-                {
-                    NT1 = new Vector2Int(NT1.x, T1.y + (100 - T1.y) / 2);
-                    do
-                    {
-                        PT2 = new Vector2Int(PT2.x + Random.Range(minSize, maxSize), NT1.y);
-                        if (PT2.x - T2.x < minSize)
-                        {
-                            PT2 = new Vector2Int(PT2.x + minSize, PT2.y);
-                        }
-                        if (100 - PT2.x < minSize)
-                        {
-                            PT2 = new Vector2Int(T2.x + (100 - T2.x) / 2, PT2.y);
-                        }
-                        if (PT2.x <= 100)
-                        {
-                            cubicKangeFilleds[index] = new CubicKangeFilled
-                                (PT1, new Vector2Int(PT2.x, PT1.y));
-                            PT1 = new Vector2Int(cubicKangeFilleds[index].LeftX, cubicKangeFilleds[index].LeftY);
-                            PT2 = new Vector2Int(cubicKangeFilleds[index].RightX, cubicKangeFilleds[index].LeftY);
-                            index++;
-                        }
-                        else
-                        {
-                            PT2 = new Vector2Int(100, PT2.y);
-                            cubicKangeFilleds[index] = new CubicKangeFilled
-                                (PT1, new Vector2Int(PT2.x, PT1.y));
-                            PT1 = new Vector2Int(cubicKangeFilleds[index].LeftX, cubicKangeFilleds[index].LeftY);
-                            PT2 = new Vector2Int(cubicKangeFilleds[index].RightX, cubicKangeFilleds[index].LeftY);
-                            index++;
-                        }
-                    }
-                    while (PT2.x < T2.x);
-                }
-            }
-            else
-            {
-                NT1 = new Vector2Int(NT1.x, 100);
                 do
                 {
-                    PT2 = new Vector2Int(PT2.x + Random.Range(minSize, maxSize), NT1.y);
-                    if (PT2.x - T2.x < minSize)
+                    PT2 = new Vector2Int(PT2.x + Random.Range(minSize, maxSize), PT2.y);
+                    if ((T2.x + minSize) - PT2.x > 0 && PT2.x > T2.x)
                     {
                         PT2 = new Vector2Int(PT2.x + minSize, PT2.y);
                     }
-                    if (100 - PT2.x < minSize)
-                    {
-                        PT2 = new Vector2Int(T2.x + (100 - T2.x) / 2, PT2.y);
-                    }
-                    if (PT2.x <= 100)
-                    {
-                        cubicKangeFilleds[index] = new CubicKangeFilled
-                            (PT1, new Vector2Int(PT2.x, PT1.y));
-                        PT1 = new Vector2Int(cubicKangeFilleds[index].LeftX, cubicKangeFilleds[index].LeftY);
-                        PT2 = new Vector2Int(cubicKangeFilleds[index].RightX, cubicKangeFilleds[index].LeftY);
-                        index++;
-                    }
-                    else
+                    if (PT2.x > 100)
                     {
                         PT2 = new Vector2Int(100, PT2.y);
-                        cubicKangeFilleds[index] = new CubicKangeFilled
-                            (PT1, new Vector2Int(PT2.x, PT1.y));
-                        PT1 = new Vector2Int(cubicKangeFilleds[index].LeftX, cubicKangeFilleds[index].LeftY);
-                        PT2 = new Vector2Int(cubicKangeFilleds[index].RightX, cubicKangeFilleds[index].LeftY);
-                        index++;
                     }
+                    cubicKangeFilleds[index] = new CubicKangeFilled
+                        (PT1, new Vector2Int(PT2.x, T1.y));
+                    PT1 = new Vector2Int(cubicKangeFilleds[index].RightX, cubicKangeFilleds[index].LeftY);
+                    PT2 = PT1;
+                    index++;
                 }
                 while (PT2.x < T2.x);
+                NT2 = PT2;
             }
-            NT2 = PT2;
-            Vector2Int PT3 = new Vector2Int(PT2.x, T1.y - Random.Range(minSize, maxSize));
-            if (PT3.y < 0)
+            else
             {
-                PT3 = new Vector2Int(PT3.x, 0);
+                NT2 = T2;
             }
-            Vector2Int PT4 = T2;
-            Vector2Int PT5 = new Vector2Int(NT2.x, T2.y);
-            do
+            if (NT2.x > T2.x)
             {
-                PT5 = new Vector2Int(PT5.x, PT5.y - Random.Range(minSize, maxSize));
-                if (PT5.y < 0)
+                Vector2Int PT4 = T2;
+                Vector2Int PT5 = new Vector2Int(NT2.x, T2.y);
+                do
                 {
-                    PT5 = new Vector2Int(PT5.x, 0);
+                    PT5 = new Vector2Int(PT5.x, PT5.y - Random.Range(minSize, maxSize));
+                    if (PT5.y < T3.y)
+                    {
+                        PT5 = new Vector2Int(PT5.x, T3.y);
+                    }
+                    cubicKangeFilleds[index] = new CubicKangeFilled(PT4, PT5);
+                    index++;
+                    PT4 = new Vector2Int(PT4.x, PT5.y);
                 }
-                cubicKangeFilleds[index] = new CubicKangeFilled(PT4, PT5);
-                index++;
-                PT4 = new Vector2Int(PT4.x, PT5.y);
+                while (PT5.y != T3.y);
+                NT3 = PT5;
             }
-            while (PT5.y != 0);
-            NT3 = PT5;
-            Debug.Log(index);
+            else
+            {
+                NT3 = T3;
+            }
             return new Vector2Int[] {NT1,NT2,NT3 };
         }
     }
