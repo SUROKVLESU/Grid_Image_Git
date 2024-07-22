@@ -37,6 +37,8 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private Button NumberGridButton;
     [SerializeField]
+    private Button RandomColorButton;
+    [SerializeField]
     private Text NumberGridText;
     private int NumberGrid = 1;
 
@@ -58,6 +60,20 @@ public class Controller : MonoBehaviour
         WidthImage = ImageResult.rectTransform.rect.width;
         PrintButton.enabled = false;
         PrintButton.transform.GetComponent<Image>().color = Color.red;
+        RandomColorButton.onClick.AddListener(() =>
+        {
+            if (CubicColor != null)
+            {
+                for (int i = 0; i < CubicColor.Length; i++)
+                {
+                    CubicColor[i] = new Color
+                    (Random.Range(-0.5f, 0.51f), Random.Range(-0.5f, 0.51f), Random.Range(-0.5f, 0.51f), 0);
+                    ImageResult.rectTransform.GetChild(0).GetChild(i).GetComponent<Image>().color =
+                        new Color(CubicColor[i].r, CubicColor[i].g, CubicColor[i].b, 0.5f);
+                }
+            }
+            SetActiveRGB(false);
+        });
         NumberGridButton.onClick.AddListener(() => 
         {
             SetActiveRGB(false);
@@ -105,7 +121,6 @@ public class Controller : MonoBehaviour
         {
             SetActiveRGB(false);
             ImageResult.rectTransform.GetChild(0).gameObject.SetActive(false);
-            //DestroyGrid();
             NewTexture = ServiceImage.CreateTexture2D(SelectedTexture);
             ServiceImage.PrintAllTexture(NewTexture, CubicKangeFilleds, CubicColor);
             ImageResult.overrideSprite = ServiceImage.CreateSprite(NewTexture);
@@ -124,7 +139,6 @@ public class Controller : MonoBehaviour
     private void OnClickSaveButton()
     {
         ImageResult.rectTransform.GetChild(0).gameObject.SetActive(false);
-        //DestroyGrid();
         Interface.SetActive(true);
         SelectedTexture = controllerFile_Controller.GetTexture();//==============================
         NewTexture = SelectedTexture;
@@ -225,6 +239,7 @@ public class Controller : MonoBehaviour
         NewGridButton.gameObject.SetActive (active);
         OldGridButton.gameObject.SetActive(active);
         NumberGridButton.gameObject .SetActive (active);
+        RandomColorButton.gameObject .SetActive (active);
     }
     public static void SetActiveRGB(bool active) 
     {
